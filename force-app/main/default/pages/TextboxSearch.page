@@ -1,0 +1,16 @@
+<!--4.Create a page that has a text box and a datatable having column(Name, Phone, PostalCode and city) and in textbox text is entered and on the basis of it the datablock searches and shows the name column along with other columns.-->
+<apex:page controller="ControllerForTextboxSearch">
+    <apex:form >
+        <apex:inputText value="{!searchstring}" label="Input"/>
+        <apex:commandButton value="Search records" action="{!search}"/>
+        <apex:commandButton value="Clear records" action="{!clear}"/>
+        <apex:pageBlock title="Search Result"> 
+            <apex:PageblockTable value="{!accountList}" var="a" >
+                <apex:column value="{!a.Name}"/>
+                <apex:column value="{!a.Phone}"/> 
+                <apex:column value="{!a.Billingcity}"/>
+                <apex:column value="{!a.BillingPostalcode}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>   
+</apex:page>

@@ -1,0 +1,86 @@
+<aura:component controller="ActivityTabHandler" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.myAction}"/>
+    <aura:attribute name="supportsPopOut" type="Boolean" default="false" />
+    <aura:attribute name="Name" type="list"/>
+    <aura:attribute name="allData" type="List" />
+    <aura:attribute name="relatedto" type="list"/>
+    <aura:attribute name="subjectOptions" type="List" default="[]"/>
+    <aura:attribute name="recordList" type="List" default="[]"/>
+    <aura:attribute name="statusOptions" type="List" default="[]"/>
+    <aura:attribute name="taskObj" type="Task" default="{'sObjectType':'Task','Subject':'', 'ActivityDate':'','Status':'','OwnerId':'','WhoId':'','WhatId':''}"/>
+    <aura:attribute name="taskLogObj" type="Task" default="{'sObjectType':'Task','Subject':'', 'WhoId':'','WhatId':'','Description':''}"/>
+    <aura:attribute name="trueFalse" type="boolean" default="false"/>  
+    <aura:attribute name="showHidePage" type="boolean" default="true"/> 
+    <aura:attribute name="trueFalsetime1" type="boolean" default="true"/> 
+    <aura:attribute name="trueFalsetime2" type="boolean" default="false"/> 
+    <aura:attribute name="showPageError" type="boolean" default="false"/> 
+    <aura:attribute name="showPageErrorStatus" type="boolean" default="false"/>
+    <aura:attribute name="showPageErrorAssigned" type="boolean" default="false"/> 
+    <aura:attribute name="subjectName" type="String"/>
+    <aura:attribute name="objectList" type="List" default="[{label:'Contact', APIName:'contact', fieldName: 'name', iconName: 'standard:contact'}]" />
+    <aura:attribute name="objectList2" type="List" default="[{label:'Account', APIName:'Account', fieldName: 'name', iconName: 'standard:account'}]"/>
+    <aura:attribute name="objectList3" type="List" default="[{label:'People', APIName:'user', fieldName: 'name', iconName: 'standard:user'}]"/>
+    <aura:attribute name="eventObj" type="event" default="{'sObjectType':'event', 'Subject':'', 'StartDateTime':'', 'EndDateTime':'', 'IsAllDayEvent':'', 'WhoId':'', 'WhatId':'', 'OwnerId':'', 'Location':''}"/>   
+    
+    <!--SUBJECT-->
+    <div class="slds-form-element slds-m-bottom--medium">
+        <label class="slds-form-element__label" for="text-input-id-1">Subject</label>
+        <div class="slds-input-has-icon slds-input-has-icon_right">
+            <lightning:icon iconName="utility:search" size="x-small" class="slds-icon slds-input__icon slds-input__icon_right"/>
+            <input type="text" autocomplete="on" oninput="{!c.myFunction}" aura:id="Eventsubject" id="search" value="{!v.eventObj.Subject}" class="slds-input" onclick="{!c.subjectMethod}" />
+        </div>
+    </div>
+    <aura:if isTrue="{!v.trueFalse}">
+        <div class="myUL">
+            <ul>
+                <aura:iteration items="{!v.recordList}" var="a">
+                    <li class="item-li" onclick="{!c.change}" data-id="{!a.label}">{!a.label}</li>
+                </aura:iteration>
+            </ul>
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!v.trueFalsetime1}">
+        
+        <!--START-->
+        <lightning:input type="datetime" name="input1" label="Start" aura:id="EventStartDateTime" value="{!v.eventObj.StartDateTime}" required="true" class="slds-p-right_none"/>
+        
+        <!--END-->
+        <lightning:input type="datetime" name="input1" label="End" aura:id="EventEndDateTime" value="{!v.eventObj.EndDateTime}" required="true" class="slds-p-left_none"/>
+    </aura:if>
+    <aura:if isTrue="{!v.trueFalsetime2}">
+        <lightning:input type="date" name="input1" label="Start" required="true" value="{!v.eventObj.StartDateTime}"/>
+        
+        <lightning:input type="date" name="input1" label="End" required="true" value="{!v.eventObj.EndDateTime}"/>
+    </aura:if>
+    
+    <!--All-Day Event-->
+    <div style="margin-bottom:-17px;" class="slds-m-top_small">
+        <label class="slds-form-element__label" for="text-input-id-1">All-Day Event</label>
+    </div><br/>
+    <lightning:input aura:id="DisclaimerCheckBox" type="checkbox" label="" name="DisclaimerCheckBox" checked="" value="{!v.eventObj.IsAllDayEvent}" onchange="{!c.isAllDayMethod}" />
+    
+    <!--NAME-->
+    <div style="margin-bottom:-17px;" class="slds-m-top_small">
+        <label class="slds-form-element__label" for="text-input-id-1">Name</label>
+    </div>
+    <c:MultiObjectLookup objectList="{!v.objectList}" aura:id="Eventwhoid" value="{!v.eventObj.WhoId}" label="" />
+    
+    <!--RelatedTo-->
+    <div style="margin-bottom:-17px;" class="slds-m-top_small">
+        <label class="slds-form-element__label" for="text-input-id-1">Realted To</label>
+    </div>
+    <c:MultiObjectLookup2 objectList="{!v.objectList2}" aura:id="Eventwhatid" value="{!v.eventObj.WhatId}" label="" />
+    
+    <!--AssignedTo-->
+    <div style="margin-bottom:-17px;" class="slds-m-top_small">
+        <label class="slds-form-element__label" for="text-input-id-1"><abbr class="slds-required" title="required">*</abbr>Assigned To</label>
+    </div>
+    <c:MultiObjectLookup3 objectList="{!v.objectList3}" aura:id="Eventownerid" value="{!v.eventObj.OwnerId}" label="" />
+    
+    <!--LOCATION-->
+    <lightning:input name="input1" label="Location" aura:id="EventLocation" value="{!v.eventObj.Location}" class="slds-m-top_medium"/>
+    
+    <!--Save-->
+    <button variant="brand" class="slds-float_right slds-button slds-button--brand slds-m-top_x-small slds-m-bottom_none" onclick="{!c.handleEventClick}">Save</button>
+    
+</aura:component>

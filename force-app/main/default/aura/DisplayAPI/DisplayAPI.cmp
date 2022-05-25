@@ -1,0 +1,27 @@
+<aura:component controller="DisplayAPIHandler">    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="objOption" type="List" />
+    <aura:attribute name="selectedSobject" type="String" />
+    <aura:attribute name="FieldList" type="List"/>
+    <aura:attribute name="SelectedField" type="String"/>  
+    <div style="width:30%; margin:50px auto;box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;padding:10px;border-radius:4px;">
+        <lightning:layout multipleRows="true">
+            <lightning:layoutItem size="12" padding="around-small">
+                <lightning:select name="acc" label="Select a Object:" aura:id="acc" value="{!v.selectedSobject}" onchange="{!c.getFields}">
+                    <aura:iteration items="{!v.objOption}" var="opt">
+                        <option text="{!opt}" value="{!opt}" selected="{!opt.selected}"></option>
+                    </aura:iteration>
+                </lightning:select>
+            </lightning:layoutItem>
+            <!--
+            <lightning:layoutItem size="12" padding="around-small">
+                <lightning:select name="con" label="Field's API name will show here" aura:id="con" value="{!v.SelectedField}">
+                    <aura:iteration items="{!v.FieldList}" var="item">
+                        <option text="{!item}" value="{!item}" selected="{!item.selected}"></option>
+                    </aura:iteration>
+                </lightning:select>
+            </lightning:layoutItem>
+-->
+        </lightning:layout>
+    </div>
+</aura:component>

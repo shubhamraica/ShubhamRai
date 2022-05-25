@@ -1,0 +1,7 @@
+<!--3.Create a page that shows a datatable having 100 records-->
+<apex:page controller="ControllerForDatatable" title="100 Account Records">
+    <apex:dataTable value="{! accounts }" var="ct" bgcolor="pink" border="1">
+        <apex:facet name="header">Account Name</apex:facet>
+            <apex:column value="{! ct.Name }"/>
+    </apex:dataTable>
+</apex:page>

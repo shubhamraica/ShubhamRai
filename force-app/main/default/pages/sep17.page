@@ -1,0 +1,27 @@
+<apex:page renderAs="pdf">
+    <table style="width:100%;border:2px solid red;" >
+        <tr>
+            <td style="width:50%;">
+                geer
+            </td>
+            <td style="width:20%;">
+                ger
+            </td>
+            <td style="width:20%;">
+                err
+            </td>
+        </tr>
+        <tr>
+            <td style="width:50%;">
+                geer
+            </td>
+            <td style="width:20%;">
+                ger
+            </td>
+            <td style="width:20%;">
+                err
+            </td>
+        </tr>
+        
+    </table>
+</apex:page>

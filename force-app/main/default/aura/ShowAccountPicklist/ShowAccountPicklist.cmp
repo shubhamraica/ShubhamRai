@@ -1,0 +1,30 @@
+<aura:component controller="ShowAccountPicklistHandler">
+    <aura:handler name="init" value="{!this}" action="{!c.handleClick}"/>
+    <aura:attribute name="accounts" type="Account[]" />
+    <table id="mainTable" Style="text-align:center;background-color: #fff;margin:50px auto;border:1px solid #f3f4ed; width:60%;box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;padding:10px;">
+        <tr Style = "position:sticky;;line-height:40px;">
+            <th><b>ACCOUNT</b></th>
+            <th><b>OPPORTUNITIES</b></th>
+            <th><b>CONTACTS</b></th>
+        </tr>
+        <aura:iteration items="{!v.accounts}" var="a" >
+            <tr Style = "line-height:35px;vertical-align:bottom">  
+                <td valign="bottom">{!a.Name}</td>
+                <td valign="bottom">
+                    <lightning:select>
+                        <aura:iteration items="{!a.Opportunities}" var="opp">
+                            <option>{!opp.Name}</option>
+                        </aura:iteration> 
+                    </lightning:select> 
+                </td>
+                <td valign="bottom">
+                    <lightning:select>
+                        <aura:iteration items="{!a.Contacts}" var="con">
+                            <option>{!con.LastName}</option>
+                        </aura:iteration> 
+                    </lightning:select> 
+                </td>
+            </tr> 
+        </aura:iteration>                                           
+    </table>    
+</aura:component>

@@ -1,0 +1,78 @@
+.THIS {
+    --first-color: #16f;
+    }
+    .THIS .topMost{
+        background-color: red;
+    }
+    .THIS .Report{
+        width:100%;
+        height:auto;
+        box-sizing:border-box;  
+        text-align:center;
+        color:#fff;
+        font-family:Century Gothic;
+        /*background: linear-gradient(to right, #3e5151, #decba4);*/
+        text-shadow: 2px 2px 2px rgba(150, 150, 150, 1);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        transition: width 2s;
+        -webkit-text-stroke: 1px black;
+    }
+    .THIS .Report:before {
+        content: "";
+        z-index: -1;
+        -webkit-filter: blur(5px);
+        -moz-filter: blur(5px);
+        -o-filter: blur(5px);
+        -ms-filter: blur(5px);
+        filter: blur(5px);
+    }
+    .THIS .ImgSrc{
+        margin:auto;
+    }
+    .THIS .temp{
+        font-size:50px;
+    }
+    .THIS .description{
+        font-size:50px;
+        text-transform: capitalize;
+    }
+    .THIS .city{
+        font-size:30px;
+        text-transform: capitalize;
+    }
+    .THIS .today, .THIS .todayTime{
+        margin:5px;
+    }
+    .THIS .slds-button_brand {
+        background-color:var(--first-color);
+                border:none;
+                line-height:30px;
+            }
+            
+            
+            .THIS .data-row:hover {
+                background-color:#54698d;
+                color:white;
+                cursor:pointer;
+            }
+            .THIS .data-row.selectedRow{
+                background-color:#54698d;
+                color:white;
+            }
+            
+            
+            
+            .THIS .slds-dropdown-trigger_click.slds-is-open .slds-dropdown{
+                background:pink;
+                position:;
+                z-index:0;
+            }
+            
+            
+            .THIS .slds-image_card,.THIS .slds-image--card,.THIS .slds-file_card,.THIS .slds-file--card{
+                border:none;
+                border-radius:6px;
+                border:2px solid grey;
+            }

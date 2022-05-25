@@ -1,0 +1,17 @@
+<apex:page controller="ExportAllHandler" renderAs="{!renderAsdoc}"  contentType="{!renderAsExcel}" sidebar="false">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    </head>
+    <Apex:form > 
+        <Apex:commandButton value="Export as Pdf" action="{!SaveAspdf}" StyleClass="myClass"/>
+        <Apex:commandButton value="Export as Excel" action="{!SaveAsExcel}" StyleClass="myClass"/>
+    </Apex:form>  
+    <apex:pageBlock title="Account Details" >
+        <apex:pageBlockTable value="{!accList}" var="obj">
+            <apex:column value="{!obj.Name}"/>
+            <apex:column value="{!obj.Status__c}"/>
+            <apex:column value="{!obj.TextPrice__c}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    
+</apex:page>

@@ -1,0 +1,19 @@
+<apex:page controller="parentaccount">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection >
+                <apex:pageBlockSectionItem >
+                    Parent Account:<apex:outputLabel value="AccountParentName"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    Account:<apex:outputLabel value="{! accountName}"/>
+                </apex:pageBlockSectionItem>
+                <apex:repeat value="{!childList}" var="accountchild">
+                    <apex:pageBlockSectionItem >
+                        Child Account:<apex:outputLabel value="{!accountchild.Name}"/>     
+                    </apex:pageBlockSectionItem>
+                </apex:repeat>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

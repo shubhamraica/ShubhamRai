@@ -1,0 +1,40 @@
+.THIS {
+}
+.THIS .displayImgContainer{   
+    height:350px; 
+    width:100%;
+    border:5px solid #1B5297;
+}
+.THIS .displayImg{
+    width:auto;
+    height:340px;    
+}
+.THIS .sliderImg{
+    width:70px;
+    height:70px;
+    margin:5px;
+    padding:5px;
+    border:4px solid #1B5297;
+    border-radius:50%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    position:relative;
+    transition:all 0.3s;
+}
+.THIS .sliderImg:hover{
+    cursor:pointer;
+    -webkit-filter: grayscale(100%);  
+    transform:scale(1.1);    
+}
+.THIS ::-webkit-scrollbar {
+    width: 10px; 
+}
+.THIS ::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+.THIS ::-webkit-scrollbar-thumb {
+    background-color: #1B5297;
+}
+.THIS ::-webkit-scrollbar-thumb {
+    background-color: #1B5297;
+    border-radius: 20px;
+}

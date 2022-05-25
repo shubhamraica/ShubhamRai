@@ -1,0 +1,85 @@
+<aura:component controller="ObjectsInPicklistHandler">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <div style="width:30%; margin:50px auto;box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;padding:10px;border-radius:4px;">
+        <lightning:combobox aura:id="SobjectList" 
+                            name="SobjectList"
+                            placeholder="Select An Object..." onchange="{!c.getfields}"
+                            value=""/>
+        <lightning:combobox aura:id="FieldsList" name="FieldsList"
+                            placeholder="Fields Will Show Here..." 
+                            value="" diabled="true" />
+    </div>
+    <lightning:input type="date" class = "some" name="input1" label="Enter a date" />
+    
+    
+    
+    
+    <aura:attribute name="status" type="List" default="[1,2,3,4]"/>
+    <aura:iteration items="{!v.status}" var="item" indexVar="index">
+        
+        <aura:if isTrue="{!index == 0}">
+            {!item} with some different CSSSSSSSSS
+          
+        </aura:if>
+         {!item} simple CSSSSS<br/>
+    </aura:iteration>
+    
+    ✅
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div style="width:100%;border:2px solid red;">
+        <div style="color:green;text-align:center;margin:20px auto;">You might also like these :</div>
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-12 slds-align_absolute-center">
+                <img src="https://www.pngitem.com/pimgs/m/534-5346011_last-track-left-arrow-app-back-icon-png.png"/>
+            </div>
+            <div class="slds-col slds-size_10-of-12">
+                <div style="text-align:center;margin:auto;">
+                    <img src="https://i.pinimg.com/736x/a9/b1/51/a9b15193aa90f32ef9c867892e8e8d33.jpg" style="border-radius:12px 12px 0px 0px;width:80%;height:400px;margin:auto;"/>
+                    <div style="margin:auto;border-radius:0px 0px 12px 12px;width:80%;background-color:blue;padding:20px 10px;">
+                        <table>
+                            <tr>
+                                <td style="width:75%;color:#fff;font-weight:bold;font-size:30px;">Inviting Offers Over<br/>$500000</td>
+                                <td style="width:25%;"><p style="width:80%;background-color:#fff;padding:15px 0px;color:green;border-radius:10px;text-align:center;">View info</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-12 slds-align_absolute-center">
+                <img src="https://res.cloudinary.com/shubhamrai/image/upload/v1633435960/287-2870203_file-antu-arrow-right-svg-arrow-right-icon_qxegbi.jpg"/>
+            </div>
+        </div>
+    </div>
+  
+    
+    
+    
+    
+       <lightning:button label="Download" class= "someBtn" disabled="true" variant="brand"/>
+
+    <br/><br/><br/><br/><br/><br/>
+    <lightning:formattedNumber value="125000" style="currency" currencyCode="INR" />
+ <lightning:formattedDateTime value="2021-11-30" year="numeric" day="2-digit" month="short"/>2021-11-30
+
+    <br/><br/><br/><br/><br/><br/>
+</aura:component>

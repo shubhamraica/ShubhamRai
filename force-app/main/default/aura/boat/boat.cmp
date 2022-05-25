@@ -1,0 +1,5 @@
+<aura:component controller = "SendReceive" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+   
+        <lightning:button label="Send" iconName="utility:send" iconPosition="right" class="slds-button slds-button_brand slds-m-vertical_x-small" onclick="{! c.HandleClick }" />
+
+ </aura:component>

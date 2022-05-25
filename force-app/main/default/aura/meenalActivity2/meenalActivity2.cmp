@@ -1,0 +1,216 @@
+<aura:component controller="AuraContactActivityNewTask" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="Name" type="list"/>
+    <aura:attribute name="relatedto" type="list"/>
+    <aura:attribute name="User" type="list"/>
+    <aura:attribute name="Namemenuselected" type="string"/>
+    <aura:attribute name="relatedtomenuselected" type="string"/>
+    <aura:attribute name="Assignedtomenuselected" type="string"/>
+    <aura:attribute name="task" type="Task" default="{'sObjectType':'Task','Subject':'',
+                                                     'ActivityDate':'','WhoId':'','WhatId':'','OwnerId':''}"/>
+    <aura:attribute name="subjectOptions" type="List" default="[]"/>
+    <aura:attribute name="statusOptions" type="List" default="[]"/>
+    
+    <aura:attribute name="trueFalse" type="boolean" default="false"/>
+    <aura:attribute name="searchvalue" type="string"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}"/>
+    <!--tab-->
+    <div class="slds-tabs_card newPage">
+        <lightning:tabset  class ="slds-text-heading_small">
+            <lightning:tab label="Activity">
+                <lightning:tabset>
+                    <lightning:tab label="New Task" >
+                        
+                        <!--subject start-->
+                        <div class="slds-form-element  slds-m-bottom--medium">
+                            <label class="slds-form-element__label" for="text-input-id-1">Subject</label>
+                            <div class="slds-input-has-icon slds-input-has-icon_right">
+                                <lightning:icon iconName="utility:search" size="x-small" class="slds-icon slds-input__icon slds-input__icon_right"/>
+                                <input type="text" value="{!v.task.Subject}" aura:id="search" class="slds-input" onclick="{!c.subjectMethod}" />
+                            </div>
+                        </div>     
+                        <aura:if isTrue="{!v.trueFalse}">
+                            <div class="col-md-4">
+                                <ul >
+                                    <aura:iteration items="{!v.subjectOptions}" var="p">
+                                        <li class="item-li" onclick="{!c.change}" data-id="{!p.label}">{!p.label}</li>
+                                    </aura:iteration>
+                                </ul>
+                            </div>
+                        </aura:if>
+                        <!--subject end--> 
+                        
+                        <!--date-->                                           
+                        <br/><lightning:input type="date" name="date" label="Due Date" value="{!v.task.ActivityDate}"/><br/>
+                        <!--date-->
+                        
+                        <!--name-->                        
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-12" >
+                                <span>
+                                    <label class="slds-form-element__label" for="text-input-id-1"></label>
+                                    <lightning:layout>
+                                        <lightning:layoutItem flexibility="auto" padding="horizontal">
+                                            <lightning:buttonMenu alternativeText="Show menu" variant="inverse"  iconName="standard:account"
+                                                                  iconSize="large" value="{!v.Namemenuselected}"
+                                                                  onselect="{!c.selectname}">
+                                                <lightning:menuItem value="contact" label="Contacts" prefixIconName="standard:contact"/>
+                                                <lightning:menuItem value="lead" label="Leads" prefixIconName="standard:lead"/>
+                                            </lightning:buttonMenu>
+                                        </lightning:layoutItem>
+                                    </lightning:layout>
+                                </span>
+                            </div>
+                            <div class="slds-col slds-size_11-of-12" style="">
+                                <span>
+                                    <lightning:select name="Name"  class="select" label="Name" value="{!v.task.WhoId}">
+                                        <option  value="" text=""/>
+                                        <aura:iteration items="{!v.Name}" var="name">
+                                            <option text="{!name.Name}" value="{!name.Id}"></option>
+                                        </aura:iteration>
+                                    </lightning:select>
+                                </span>
+                            </div>
+                        </div><br/>                     
+                        <!--name-->
+                        
+                        <!--related to start-->
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-12" >
+                                <span>
+                                    <label class="slds-form-element__label" for="text-input-id-1"></label>
+                                    <lightning:layout>
+                                        <lightning:layoutItem flexibility="auto" padding="horizontal">
+                                            <lightning:buttonMenu alternativeText="Show menu" variant="inverse" aura:id="menu" iconName="standard:account"
+                                                                  iconSize="large" value="{!v.relatedtomenuselected}" onselect="{!c.selectrelatedto}">
+                                                <lightning:menuItem value="Account" label="Account" prefixIconName="standard:account"/>
+                                                <lightning:menuItem value="Asset Relationship" label="Asset Relationship" prefixIconName="standard:asset_relationship"/>
+                                                <lightning:menuItem value="Assets" label="Assets" prefixIconName="standard:asset_object"/>
+                                                <lightning:menuItem value="Task" label="Task" prefixIconName="standard:task"/>
+                                                <lightning:menuItem value="Assigned Resource" label="Assigned Resource" prefixIconName="standard:assigned_resource"/>
+                                                <lightning:menuItem value="Campaign" label="Campaign" prefixIconName="standard:campaign"/>
+                                                <lightning:menuItem value="Case" label="Cases" prefixIconName="standard:case"/>
+                                                <lightning:menuItem value="Communication Subscription Consent" label="Communication Subscription Consent" prefixIconName="standard:collection"/>
+                                                <lightning:menuItem value="Contact Requests" label="Contact Requests" prefixIconName="standard:contact_request"/>
+                                                <lightning:menuItem value="Contract Line Item " label="Contract Line Item " prefixIconName="standard:contract_line_item"/>
+                                                <lightning:menuItem value="Contract" label="Contract" prefixIconName="standard:contract"/>
+                                                <lightning:menuItem value="Credit Memos" label="Credit Memos" prefixIconName="standard:client"/>
+                                                <lightning:menuItem value="Entiltements" label="Entiltements" prefixIconName="standard:entitlement"/>
+                                                <lightning:menuItem value="Images" label="Images" prefixIconName="standard:individual"/>
+                                                <lightning:menuItem value="Invoices" label="Invoices" prefixIconName="standard:insights"/>
+                                                <lightning:menuItem value="Legal Entities" label="Legal Entities" prefixIconName="standard:lightning_usage"/>
+                                                <lightning:menuItem value="List Emails" label="List Emails" prefixIconName="standard:list_email"/>
+                                                <lightning:menuItem value="Locations" label="Locations" prefixIconName="standard:location"/>
+                                                <lightning:menuItem value="Opportunities" label="Opportunities" prefixIconName="standard:opportunity"/>
+                                                <lightning:menuItem value="Orders" label="Orders" prefixIconName="standard:orders"/>
+                                                <lightning:menuItem value="Party Consents" label="Party Consents" prefixIconName="standard:partners"/>
+                                                <lightning:menuItem value="Process Exceptions" label="Process Exceptions" prefixIconName="standard:process_exception"/>
+                                                <lightning:menuItem value="Products" label="Products" prefixIconName="standard:products"/>
+                                                <lightning:menuItem value="Resource Absences" label="Resource Absences" prefixIconName="standard:resource_absence"/>
+                                                <lightning:menuItem value="Return Order Line Items" label="Return Order Line Items" prefixIconName="standard:resource_capacity"/>
+                                                <lightning:menuItem value="Return Orders" label="Return Orders" prefixIconName="standard:return_order"/>
+                                                <lightning:menuItem value="Service Appointments" label="Service Appointments" prefixIconName="standard:service_appointment"/>
+                                                <lightning:menuItem value="Service Resource" label="Service Resource" prefixIconName="standard:service_resource"/>
+                                                <lightning:menuItem value="Solutions" label="Solutions" prefixIconName="standard:solution"/>
+                                                <lightning:menuItem value="Work Order Line Items" label="Work Order Line Items" prefixIconName="standard:work_order_item"/>
+                                                <lightning:menuItem value="Work Orders" label="Work Orders" prefixIconName="standard:work_order"/>
+                                            </lightning:buttonMenu>
+                                        </lightning:layoutItem>
+                                    </lightning:layout>
+                                </span>
+                            </div>
+                            <div class="slds-col slds-size_11-of-12">
+                                <lightning:select name="relatedto" label="Related To"  value="{!v.task.WhatId}">
+                                    <option value="" text=""/>
+                                    <aura:iteration items="{!v.relatedto}" var="relatedto">
+                                        <option text="{!relatedto.Name}" value="{!relatedto.Id}"></option>
+                                    </aura:iteration>
+                                </lightning:select>
+                            </div>
+                        </div><br/>
+                        <!--related to end--> 
+                        
+                        <!--assigned to start-->
+                        
+                        <div class="slds-grid slds-wrap" >
+                            <div class="slds-col slds-size_1-of-12" >
+                                <span>
+                                    <label class="slds-form-element__label" for="text-input-id-1"></label>
+                                    <lightning:layout>
+                                        <lightning:layoutItem flexibility="auto" padding="horizontal">
+                                            <lightning:buttonMenu alternativeText="Show menu" variant="inverse" aura:id="menu" iconName="standard:user"
+                                                                  iconSize="large" value="{!v.Assignedtomenuselected}"
+                                                                  onselect="{!c.selectAssignedto}">
+                                                <lightning:menuItem value="user" label="Peoples" prefixIconName="standard:user"/>
+                                                <lightning:menuItem value="Queues" label="Queues" prefixIconName="standard:queue"/>
+                                            </lightning:buttonMenu>
+                                        </lightning:layoutItem>
+                                    </lightning:layout>
+                                </span>
+                            </div>
+                            <div class="slds-col slds-size_11-of-12" >
+                                <lightning:select name="Assignedto" aura:id="assignedto" label="Assigned to" required="true" value="{!v.task.OwnerId}">
+                                    <option value="" text=""/>
+                                    <aura:iteration items="{!v.User}" var="user">
+                                        <option text="{!user.Name}" value="{!user.Id}"></option>
+                                    </aura:iteration>
+                                </lightning:select>
+                            </div>
+                        </div>
+                        <br/>
+                        <!--assigned to end-->
+                        
+                        <!--status start-->
+                        <lightning:combobox class="slds-m-top--none" aura:id="status" required="true" label="Status"
+                                            value="{!v.task.Status}" options="{!v.statusOptions}"/><br/>
+                        <!--status end-->
+                        
+                        <!--save button-->
+                        <lightning:layoutItem class="slds-clearfix">
+                            <lightning:button  variant="brand" label="Save" onclick="{!c.onsave}" class="slds-float_right"/>
+                        </lightning:layoutItem>
+                        <!--save button end-->
+                        
+                    </lightning:tab>
+                    <lightning:tab label="Log a Call">log a call</lightning:tab>
+                    <lightning:tab label="New Event">New Event</lightning:tab>
+                    <lightning:tab label="Email">Email</lightning:tab>
+                </lightning:tabset>
+            </lightning:tab>
+            <lightning:tab label="Chatter" id="Chatter">second tab</lightning:tab>
+        </lightning:tabset>
+        <div class="slds-clearfix" >
+            <div class="slds-float_right">
+                <span class="selectedFiltersText slds-show_inline-block slds-truncate uiOutputText">
+                    Filters: All time • All activities • All types
+                </span>
+                <lightning:button iconName="utility:filterList" title="Filter Timeline" class="slds-button slds-button_icon slds-button_icon-border slds-m-left_small slds-p-right_x-small"/>
+            </div><br/><br/>
+            <div class="slds-button-section__buttons slds-text-align_center slds-var-m-bottom_x-small slds-is-relative slds-float_right">
+                <a class="slds-button" href="">Refresh</a>
+                <span > • </span>
+                <a class="slds-button" href="">Expand All</a>
+                <span > • </span>
+                <a class="slds-button" href="" title="Show all past activities in a new tab">View All</a>
+            </div>
+        </div>
+        <div class="slds-section slds-is-open" aura:id="Upcoming">
+            <!--section header-->
+            <h3 class="slds-section__title">
+                <button aria-controls="Upcoming" class="slds-button slds-section__title-action">
+                    <span onclick="{!c.toggleSection}" data-auraId="Upcoming">
+                        <lightning:icon iconName="utility:switch" size="x-small" class="slds-section__title-action-icon slds-button__icon_left"/>
+                    </span>
+                    <span class="slds-truncate" title="Upcoming and Overdue"><h3><small><b>Upcoming and Overdue</b></small></h3></span>
+                </button>
+            </h3>
+            <!--section body-->
+            <div class="slds-section__content slds-text-align_center" id="Upcoming">
+                <p>No next steps.<br/>To get things moving, add a task or set up a meeting.</p>
+            </div>
+        </div>
+        <div class="emptyPastActivities slds-border_top slds-p-top--medium slds-m-bottom_x-small slds-p-bottom_x-large slds-m-top--medium slds-text-align_center ">
+            <span>No past activity. Past meetings and tasks marked as done show up here.</span>
+        </div>
+    </div>
+    <!--Tab end-->
+</aura:component>

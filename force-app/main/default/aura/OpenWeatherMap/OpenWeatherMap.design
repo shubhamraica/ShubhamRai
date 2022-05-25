@@ -1,0 +1,3 @@
+<design:component>
+	<design:attribute name="isActivePDFButler" label="Activate PDF Butler for Agreement Signed?" default="false"></design:attribute>
+</design:component>

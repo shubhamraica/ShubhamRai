@@ -1,0 +1,166 @@
+<aura:component controller="ActivityTabHandler" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.myAction}"/>
+    <aura:attribute name="supportsPopOut" type="Boolean" default="false" />
+    <aura:attribute name="Name" type="list"/>
+    <aura:attribute name="allData" type="List" />
+    <aura:attribute name="relatedto" type="list"/>
+    <aura:attribute name="subjectOptions" type="List" default="[]"/>
+    <aura:attribute name="recordList" type="List" default="[]"/>
+    <aura:attribute name="statusOptions" type="List" default="[]"/>
+    <aura:attribute name="taskObj" type="Task" default="{'sObjectType':'Task','Subject':'', 'ActivityDate':'','Status':'','OwnerId':'','WhoId':'','WhatId':''}"/>
+    <aura:attribute name="taskLogObj" type="Task" default="{'sObjectType':'Task','Subject':'', 'WhoId':'','WhatId':'','Description':''}"/>
+    <aura:attribute name="trueFalse" type="boolean" default="false"/>  
+    <aura:attribute name="showHidePage" type="boolean" default="true"/> 
+    <aura:attribute name="trueFalsetime1" type="boolean" default="true"/> 
+    <aura:attribute name="trueFalsetime2" type="boolean" default="false"/> 
+    <aura:attribute name="showPageError" type="boolean" default="false"/> 
+    <aura:attribute name="showPageErrorStatus" type="boolean" default="false"/>
+    <aura:attribute name="showPageErrorAssigned" type="boolean" default="false"/> 
+    <aura:attribute name="subjectName" type="String"/>
+    <aura:attribute name="objectList" type="List" default="[{label:'Contact', APIName:'contact', fieldName: 'name', iconName: 'standard:contact'}]" />
+    <aura:attribute name="objectList2" type="List" default="[{label:'Account', APIName:'Account', fieldName: 'name', iconName: 'standard:account'}]"/>
+    <aura:attribute name="objectList3" type="List" default="[{label:'People', APIName:'user', fieldName: 'name', iconName: 'standard:user'}]"/>
+    <aura:attribute name="eventObj" type="event" default="{'sObjectType':'event', 'Subject':'', 'StartDateTime':'', 'EndDateTime':'', 'IsAllDayEvent':'', 'WhoId':'', 'WhatId':'', 'OwnerId':'', 'Location':''}"/>   
+    <div class="slds-tabs_card">
+        <lightning:tabset selectedTabId="Activity" class ="slds-text-heading_small">
+            <lightning:tab label="Activity" id="Activity">
+                <div style="font-size: 14px;font-weight: 500;" id="mainPage">
+                    <lightning:tabset variant="scoped" class="" >
+                        <lightning:tab label="New Task" class="slds-clearfix">   
+                                <aura:if isTrue="{!v.showPageError}">   
+                                    <div class="desktop forcePageError" role="alert" data-aura-class="forcePageError" style="margin-left:-16px;margin-top:-16px;width:109%;">
+                                        <div class="genericNotification">
+                                            <span class="genericError uiOutputText" data-aura-class="uiOutputText">Review the errors on this page.</span>
+                                        </div>
+                                        <ul class="errorsList" style="padding: 0px;"><li id="liError">These required fields must be completed: Assigned To, Status</li></ul>
+                                    </div>
+                                </aura:if>
+                            <aura:if isTrue="{!v.showPageErrorStatus}">   
+                                <div class="desktop forcePageError" role="alert" data-aura-class="forcePageError" style="margin-left:-16px;margin-top:-16px;width:109%;">
+                                    <div class="genericNotification">
+                                        <span class="genericError uiOutputText" data-aura-class="uiOutputText">Review the errors on this page.</span>
+                                    </div>
+                                    <ul class="errorsList" style="padding: 0px;"><li id="liError">These required fields must be completed: Status</li></ul>
+                                </div>
+                            </aura:if>
+                            <aura:if isTrue="{!v.showPageErrorAssigned}">   
+                                <div class="desktop forcePageError" role="alert" data-aura-class="forcePageError" style="margin-left:-16px;margin-top:-16px;width:109%;">
+                                    <div class="genericNotification">
+                                        <span class="genericError uiOutputText" data-aura-class="uiOutputText">Review the errors on this page.</span>
+                                    </div>
+                                    <ul class="errorsList" style="padding: 0px;"><li id="liError">These required fields must be completed: Assigned To</li></ul>
+                                </div>
+                            </aura:if>
+                            <aura:if isTrue="{!v.showHidePage}">
+                                <div id="addBtn">
+                                    <div class="testid__publisher-quick-action-collapser collapsedState forcePublisherQuickActionCollapser" data-aura-class="forcePublisherQuickActionCollapser"><div class="slds-grid dummyControlsContainer">
+                                        <button onclick="{!c.showHidePage}" class="slds-button slds-button--neutral slds-col slds-no-space dummyButtonCallToAction uiButton" aria-live="off" type="button" title="Create a task..." aria-label="" data-aura-class="uiButton">
+                                            <span class=" label bBody" dir="ltr"  onclick="{!c.showHidePage}">Create a task...</span>
+                                        </button><button onclick="{!c.showHidePage}" class="slds-button slds-button--brand testid__dummy-button-submit-action slds-col slds-no-space dummyButtonSubmitAction uiButton" aria-live="off" type="button" title="Add" aria-label="" data-aura-class="uiButton">
+                                        <span class=" label bBody" dir="ltr" onclick="{!c.showHidePage}">Add</span>
+                                        </button></div><div class="placeholderContainer slds-clearfix slds-hide"></div><div class="slds-hide">
+                                        </div>
+                                    </div>   
+                                </div>
+                                <aura:set attribute="else">
+                                    
+                                    <!--Subject-->
+                                    <div class="slds-form-element slds-m-bottom--medium">
+                                        <label class="slds-form-element__label" for="text-input-id-1">Subject</label>
+                                        <div class="slds-input-has-icon slds-input-has-icon_right">
+                                            <lightning:icon iconName="utility:search" size="x-small" class="slds-icon slds-input__icon slds-input__icon_right"/>
+                                            <input type="text" autocomplete="on" onclick="{!c.subjectMethod}" oninput="{!c.myFunction}" aura:id="subject" id="search" value="{!v.taskObj.Subject}" class="slds-input" />
+                                        </div>
+                                    </div>
+                                    <aura:if isTrue="{!v.trueFalse}">
+                                        <div class="myUL">
+                                            <ul>
+                                                <aura:iteration items="{!v.recordList}" var="p">
+                                                    <li class="item-li  subjectLi" onclick="{!c.change}" data-id="{!p.label}">{!p.label}</li>
+                                                </aura:iteration>
+                                            </ul>
+                                        </div>
+                                    </aura:if>
+                                    
+                                    <!--DueDate-->
+                                    <lightning:input class="slds-m-top--medium slds-m-bottom--medium" aura:id="duedate" type="date" name="input1" label="Due Date" value="{!v.taskObj.ActivityDate}"/> 
+                                    
+                                    <!--NAME-->
+                                    <div style="margin-bottom:-17px;" class="slds-m-top_small">
+                                        <label class="slds-form-element__label" for="text-input-id-1">Name</label>
+                                    </div>
+                                    <c:MultiObjectLookup objectList="{!v.objectList}" aura:id="whoid" value="{!v.taskObj.WhoId}" label="" />
+                                    
+                                    <!--RelatedTo-->
+                                    <div style="margin-bottom:-17px;" class="slds-m-top_small">
+                                        <label class="slds-form-element__label" for="text-input-id-1">Realted To</label>
+                                    </div>
+                                    <c:MultiObjectLookup2 objectList="{!v.objectList2}" aura:id="whatid" value="{!v.taskObj.WhatId}" label="" />
+                                    
+                                    <!--AssignedTo-->
+                                    <div style="margin-bottom:-17px;" class="slds-m-top_small">
+                                        <label class="slds-form-element__label" for="text-input-id-1"><abbr class="slds-required" title="required">*</abbr>Assigned To</label>
+                                    </div>
+                                    <c:MultiObjectLookup3 objectList="{!v.objectList3}" aura:id="ownerid" value="{!v.taskObj.OwnerId}" label="" />
+                                    
+                                    <!--Status-->
+                                    <lightning:combobox class="slds-m-top--medium slds-m-bottom_small" aura:id="status" name="Status" label="Status" value="{!v.taskObj.Status}"  options="{!v.statusOptions}" required = "true"/>
+                                    
+                                    <!--Save-->
+                                    <button variant="brand" class="slds-float_right slds-button slds-button--brand slds-m-top_x-small slds-m-bottom_none" onclick="{!c.handleClick}">Save</button>
+                                    
+                                </aura:set>
+                            </aura:if>  
+                        </lightning:tab>
+                        
+                        <lightning:tab label="Log a Call" class="slds-clearfix">
+                            <c:LogACall/>
+                        </lightning:tab>
+                        
+                        <lightning:tab label="New Event" class="slds-clearfix">  
+                            <c:NewEvent/>
+                        </lightning:tab>
+                        
+                        <lightning:tab label="Email" class="slds-clearfix">
+                            <c:EmailTab recordId="{!v.recordId}"/>
+                        </lightning:tab>
+                        
+                    </lightning:tabset>
+                </div>
+            </lightning:tab>            
+        </lightning:tabset>
+        <div class="slds-clearfix" >
+            <div class="slds-float_right">
+                <span class="selectedFiltersText slds-show_inline-block slds-truncate uiOutputText">
+                    Filters: All time • All activities • All types
+                </span>
+                <lightning:button iconName="utility:filterList" title="Filter Timeline" class="slds-button slds-button_icon slds-button_icon-border slds-m-left_small slds-p-right_x-small"/>
+            </div>
+            <div class="slds-button-section__buttons slds-text-align_center slds-var-m-bottom_x-small slds-is-relative slds-float_right">
+                <a class="slds-button" href="">Refresh</a>
+                <span > • </span>
+                <a class="slds-button" href="">Expand All</a>
+                <span > • </span>
+                <a class="slds-button" href="" title="Show all past activities in a new tab">View All</a>
+            </div>
+        </div>
+        <div class="slds-section slds-is-open" aura:id="Upcoming">
+            <!--section header-->
+            <h3 class="slds-section__title">
+                <button aria-controls="Upcoming" class="slds-button slds-section__title-action">
+                    <span onclick="{!c.toggleSection}" data-auraId="Upcoming">
+                        <lightning:icon iconName="utility:switch" size="x-small" class="slds-section__title-action-icon slds-button__icon_left"/>
+                    </span>
+                    <span class="slds-truncate" title="Upcoming and Overdue"><h3><small><b>Upcoming and Overdue</b></small></h3></span>
+                </button>
+            </h3>
+            <!--section body-->
+            <div class="slds-section__content slds-text-align_center" id="Upcoming">
+                <p>No next steps.<br/>To get things moving, add a task or set up a meeting.</p>
+            </div>
+        </div>
+        <div class="emptyPastActivities slds-border_top slds-p-top--medium slds-m-bottom_x-small slds-p-bottom_x-large slds-m-top--medium slds-text-align_center ">
+            <span>No past activity. Past meetings and tasks marked as done show up here.</span>
+        </div>
+    </div>
+</aura:component>

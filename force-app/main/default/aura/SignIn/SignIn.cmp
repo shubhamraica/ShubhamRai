@@ -1,0 +1,24 @@
+<aura:component Controller="SignInHandler">
+    <aura:handler name = "init" value="{!this}" action = "{!c.doInit}" />
+    <aura:attribute name="Username" type="String"/>
+    <aura:attribute name="startDate" type="Date"/>
+    <aura:attribute name="endDate" type="Date"/>
+    <aura:attribute name="Password" type="String"/>
+    <div class="demo slds-col slds-size--1-of-1 slds-medium-size--1-of-3" style="text-align:center;margin:80px auto;padding:20px;border:1px solid #f3f4ed;box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;">
+        <div class="slds-align_absolute-center slds-m-top_small slds-text-heading_large">
+            SIGN IN
+        </div><!--username = abcd      password = 1234   -->
+        <lightning:input placeholder="Enter your Username..." name="username" value="{!v.Username}"/><br/>
+        <lightning:input placeholder="Enter your Password..." type="password" value="{!v.Password}"/>
+        <div><p style= "float:left" title="working on this feature, come back later...">Remeber Me</p><p style= "float:right" title="working on this feature, come back later...">Forgot Password ?</p><p style="clear:both;"></p></div>
+        <lightning:button iconName="utility:check" variant="Brand" label="Sign In" onclick="{!c.handleClick}"/>
+        <div id="test"></div>
+    </div>
+    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-4 slds-large-size_2-of-12" style = "border:2px solid red; margin:5px auto;"> ONE </div>
+    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-4 slds-large-size_2-of-12" style = "border:2px solid red; margin:5px auto;"> TWO </div>
+    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-4 slds-large-size_2-of-12" style = "border:2px solid red; margin:5px auto;"> THREE </div>
+    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-4 slds-large-size_2-of-12" style = "border:2px solid red; margin:5px auto;"> FOUR </div>
+    
+    <lightning:input type="date" name="input2" label="Start Date" value="{!v.startDate}"/>
+    <lightning:input type="date" name="input2" label="End Date" value="{!v.endDate}"/>
+</aura:component>

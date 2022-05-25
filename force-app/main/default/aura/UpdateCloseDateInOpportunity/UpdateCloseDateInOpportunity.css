@@ -1,0 +1,39 @@
+.THIS {
+}
+.THIS#test{
+    border:5px solid #f2a154;
+    height:300px;
+    padding:10px;
+    width:50%;
+    height:200px;
+    color:#fff;
+    border-radius:5px;
+    margin:auto;
+    background-color:red;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.THIS .myUniqueClass1 svg {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    width: 2rem;
+    height: 2rem;
+    border:1px solid #f2a154;
+    padding:2px;
+    color:#f2a154;
+    border-radius:5px;
+    display:block;
+    margin:5px;
+    top:-10px;
+    right:-10px;
+}
+.THIS .myUniqueClass2 svg {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    width: 2rem;
+    height: 2rem;
+    border:1px solid #f2a154;
+    padding:2px;
+    color:#f2a154;
+    border-radius:5px;
+    display:block;
+    margin:5px;
+}

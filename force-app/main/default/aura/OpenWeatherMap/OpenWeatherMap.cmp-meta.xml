@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuraDefinitionBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <description>This component is used to get the weather details based on city name or  latitude/longitude or zip code values. 
+
+I am using api.openweathermap.org API.
+
+23 June 2021.</description>
+</AuraDefinitionBundle>

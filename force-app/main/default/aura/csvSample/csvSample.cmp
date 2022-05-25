@@ -1,0 +1,41 @@
+<aura:component controller="csvDownloadCtrl">          
+    <aura:handler name="init" value="{!this}" action="{!c.loadAccountList}"/> 
+    <aura:attribute name="ListOfAccount" type="Account[]"/> 
+    
+    <div class="slds-m-around--xx-large box">   
+        <table class="slds-table slds-table--bordered slds-table--cell-buffer" style="border: 1px solid #d9dbdd;">
+            <thead>
+                <tr class="slds-text-title--caps">
+                    <th class="slds-is-sortable slds-text-title--caps" scope="col">Name</th>
+                    <th class="slds-is-sortable slds-text-title--caps" scope="col">Industry</th>
+                    <th class="slds-is-sortable slds-text-title--caps" scope="col">Phone</th>
+                    <th class="slds-is-sortable slds-text-title--caps" scope="col">Status</th>
+                    <th class="slds-is-sortable slds-text-title--caps" scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.ListOfAccount}" var="acc">  
+                    <tr><th scope="row"><div class="slds-truncate">{!acc.Name}</div></th>           
+                        <th scope="row"><div class="slds-truncate">{!acc.Industry}</div></th>
+                        <th scope="row"><div class="slds-truncate">{!acc.Phone}</div></th> 
+                        <th scope="row"><div class="slds-truncate">{!acc.Status__c}</div></th> 
+                        <th scope="row"><div class="slds-truncate">{!acc.TextPrice__c}</div></th> 
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table> 
+        <br/><br/><button class="slds-button slds-button--brand" onclick="{!c.downloadCsv}">Download Excel File</button>
+    </div>
+    
+    
+    <div class="slds-p-around_medium container lgc-bg">
+        <lightning:buttonMenu alternativeText="Show menu" label="ddddddddd">
+            <lightning:menuSubheader label="Header Alpha" />
+            <lightning:menuItem value="MenuItemOne" label="Menu Item One" />
+            <lightning:menuItem value="MenuItemTwo" label="Menu Item Two" />
+            <lightning:menuSubheader label="Header Beta" />
+            <lightning:menuItem value="MenuItemThree" label="Menu Item Three" />
+            <lightning:menuItem value="MenuItemFour" label="Menu Item Four" />
+        </lightning:buttonMenu>
+    </div>
+</aura:component>

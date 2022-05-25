@@ -1,0 +1,24 @@
+.THIS .leftDiv{
+    border:1px solid #cccccc;
+    border-right:0px solid #cccccc;
+}
+.THIS .rightDiv{    
+    border:1px solid #cccccc;
+}
+.THIS .SelectedClients{
+    font-size:20px;
+    padding:5px;
+    border-bottom:1px solid #cccccc;
+    font-weight: 500;
+}
+.THIS .checkboxWidth{
+    width: 50px;
+}
+.THIS .checkBox{
+    cursor:pointer;
+}
+.THIS .removeBtn{
+    cursor:pointer;
+    border:none;
+    background:none;
+}

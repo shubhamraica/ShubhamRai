@@ -1,0 +1,31 @@
+.THIS.container{
+    background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
+    background-attachment: fixed;
+    padding:10px;
+    border-radius:3px;
+}				
+/*
+https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png
+https://img.wallpapersafari.com/desktop/728/410/61/64/3QBHDv.png
+https://play-lh.googleusercontent.com/SZ97RCEv5EVH6iMCDIdHeGJM_BNyHYcnRQ4EdK4V_VyVxLlQS8GY1U3xB8atEBH55OM
+*/
+.THIS .rightChat{
+    background-color:#DCF8C6;
+    margin:5px 0px;
+    display:inline-block;
+    padding:5px 15px;
+    border-radius:15px 15px 0px 15px;
+    font-size: 20px;
+}
+.THIS .leftChat{
+    background-color:#fff;
+    font-size:20px;
+    margin:5px 0px;
+    border-radius:15px 15px 15px 0px;
+    padding:5px 15px;
+}
+.THIS .date_sent{
+    font-size:12px;
+    color:grey;
+    font-style:italic;
+}

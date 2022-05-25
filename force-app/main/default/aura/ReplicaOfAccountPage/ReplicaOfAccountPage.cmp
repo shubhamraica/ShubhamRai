@@ -1,0 +1,49 @@
+<aura:component controller="ReplicaHandler">
+    <aura:attribute name="Accountobj" type="Account" default="{'sObjectType':'Account','Name':'','Phone':'','Billingcity':'','Billingstate':'','Description':''}"/>
+    <aura:attribute name="toast" type="boolean"/>
+    <aura:attribute name="toastmessage" type="string"/>
+    <aura:attribute name="toaststatus" type="string"/>
+    <aura:if isTrue="{!v.toast}">
+        <div class="slds-notify_container">
+            <div class="{!v.toaststatus}" role="status">
+                <span class="slds-assistive-text">success</span>
+                <span class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
+                </span>
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small" style="text-align:center;">{!v.toastmessage}</h2>
+                </div>
+                <div class="slds-notify__close">
+                    <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close">
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+    <div class="slds-form-element__control" Style="width:30%;box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;padding:20px 15px 30px 15px;border-radius:4px;margin:20px auto;
+                                                   background-image: linear-gradient(295deg, #d7e1ec 0%, #ffffff 74%);">
+        <lightning:layout multipleRows="true">
+            <div class="slds-m-around_xx-small" style="margin:auto;">
+                <lightning:layout horizontalAlign="spread" verticalAlign="center" multipleRows="true" ><img src="http://britishchessnews.com/wp-content/uploads/2019/09/109879063-user-avatar-icon-sign-profile-symbol.jpg"/> </lightning:layout>
+            </div>
+            <lightning:layoutItem size="12" >
+                <lightning:input aura:id="name" type ="text" placeholder="Enter Account Name..." value="{!v.Accountobj.Name}"/><br/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12"  >
+                <lightning:input type ="number" placeholder="Enter Phone..." aura:id="phone" value="{!v.Accountobj.Phone}"  /><br/>
+            </lightning:layoutItem>            
+            <lightning:layoutItem size="12" >
+                <lightning:input placeholder="Enter Billing City..." value="{!v.Accountobj.BillingCity}" /><br/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12">
+                <lightning:input placeholder="Enter Billing Street..." value="{!v.Accountobj.Billingstate}"/><br/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12" >
+                <lightning:input placeholder="Enter Number Of Employees..." value="{!v.Accountobj.NumberOfEmployees}" /><br/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12" padding="around-small" class="slds-align_absolute-center">
+                <lightning:button label="Submit" class="slds-align_absolute-center" iconName="utility:adduser" variant="brand" onclick="{!c.handleClick}"/>
+            </lightning:layoutItem> 
+        </lightning:layout>
+    </div>    
+</aura:component>

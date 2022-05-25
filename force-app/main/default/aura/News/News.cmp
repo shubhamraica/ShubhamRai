@@ -1,0 +1,56 @@
+<aura:component controller='News' implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:handler name="init" value="this" action="{!c.HandleClick}"/>
+    <aura:attribute name="country" type="String" default="in"/>
+    <aura:attribute name="category" type="String" default="general"/>
+    <aura:attribute name="title" type="List" default="[]"/>
+    
+    <div class = "slds-tabs_card">  
+        
+        <!--NEWS-->
+        <div class="slds-grid slds-m-bottom_x-small">
+            <lightning:icon iconName="utility:news"/>
+            <div style="font-size:20px;margin-left:5px;color:#706e6b;"> <b>News</b></div>
+        </div>
+        
+        <!--COUNTRY-->
+        <div class="slds-list_horizontal countryDiv">
+            <lightning:button label="ae" class="slds-button slds-button_brand" onclick="{! c.selectCountry }" />
+            <lightning:button label="us" class="slds-button slds-button_brand" onclick="{! c.selectCountry }" />
+            <lightning:button label="in" class="slds-button slds-button_brand" onclick="{! c.selectCountry }" />
+            <lightning:button label="rs" class="slds-button slds-button_brand" onclick="{! c.selectCountry }" />
+            <lightning:button label="ru" class="slds-button slds-button_brand" onclick="{! c.selectCountry }" />
+            <lightning:button label="sa" class="slds-button slds-button_brand" onclick="{! c.selectCountry }" />
+            <lightning:button label="se" class="slds-button slds-button_brand" onclick="{! c.selectCountry }" />
+            <lightning:button label="ae" class="slds-button slds-button_brand" onclick="{! c.selectCountry }" />
+            <lightning:button label="th" class="slds-button slds-button_brand" onclick="{! c.selectCountry }" />
+            <lightning:button label="tr" class="slds-button slds-button_brand" onclick="{! c.selectCountry }" />
+            <lightning:button label="tw" class="slds-button slds-button_brand" onclick="{! c.selectCountry }" />
+            <lightning:button label="ua" class="slds-button slds-button_brand" onclick="{! c.selectCountry }" />
+            <lightning:button label="ve" class="slds-button slds-button_brand" onclick="{! c.selectCountry }" />
+            <lightning:button label="za" class="slds-button slds-button_brand" onclick="{! c.selectCountry }" />
+        </div>
+        
+        <!--CATEGORY-->
+        <div class="slds-list_horizontal categoryDiv">
+            <lightning:button label="business" class="slds-button slds-button_brand" onclick="{! c.selectCategory }" />
+            <lightning:button label="entertainment" class="slds-button slds-button_brand" onclick="{! c.selectCategory }" />
+            <lightning:button label="general" class="slds-button slds-button_brand" onclick="{! c.selectCategory }" />
+            <lightning:button label="health" class="slds-button slds-button_brand" onclick="{! c.selectCategory }" />
+            <lightning:button label="science" class="slds-button slds-button_brand" onclick="{! c.selectCategory }" />
+            <lightning:button label="sports" class="slds-button slds-button_brand" onclick="{! c.selectCategory }" />
+            <lightning:button label="technology" class="slds-button slds-button_brand" onclick="{! c.selectCategory }" />
+        </div>
+        
+        <!--BULLETIN-->
+        <div class="bulletin">
+            <aura:iteration items="{!v.title}" var="x">
+                <div class="bulletinArticles">
+                    {!x.newsurl}<p></p>
+                    {!x.newsTitle}
+                </div>
+            </aura:iteration>
+        </div>
+    </div>
+    
+</aura:component>

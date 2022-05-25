@@ -1,0 +1,66 @@
+<aura:component controller="loginUserProfileCtrl"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:utilityItem"
+                access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="oUser" type="user" default="{'sobjectType' : 'User'}" />
+    <aura:attribute name="visibileInputBox" type="Boolean" default="true" />
+    <aura:attribute name="parentId" type="Id" default="0016F000024nYzwQAE" />
+    <aura:attribute name="fileName" type="String"  />  
+    <aura:attribute name="fileContent" type="String"  />
+    <aura:attribute name="showLoadingSpinner" type="boolean" default="false" />
+    <aura:attribute name="EditOption" type="boolean" default="false" />
+    <aura:attribute name="EditOption2" type="boolean" default="true" />
+    <aura:attribute name="photoFrame" type="boolean" default="false" />
+    <aura:attribute name="profilechange2" type="boolean" default="true" />
+    <aura:attribute name="picdidplay" type="string" />
+    <div style="padding:8% 20%">
+        <div style="height:auto;padding:3% 5%;font-size:15px;background-color:white;">      
+            <div style="padding:10px">
+                <div style="text-align:center;">
+                    <aura:if isTrue="{!v.profilechange2}">
+                        <img src="{!v.oUser.FullPhotoUrl}"  alt="{!v.oUser.Name}" height="200" width="200"/>
+                        <br/><br/>  
+                    </aura:if>
+                    <aura:if isTrue="{!v.photoFrame}">                
+                        <img src="{!v.picdidplay}" height="300" width="300"/>
+                        <br/><br/>  
+                    </aura:if>
+                </div>
+                <aura:if isTrue="{!v.EditOption}">              
+                    <lightning:input aura:id="fileId" onchange="{!c.handleFilesChange}" type="file" name="file" label="Upload profiled" value="" multiple="false"/>
+                    <lightning:button iconName="utility:delete"  variant="success" label="Remove Image" title="Success" onclick="{!c.RemoveImg }"/>
+                    <div class="slds-text-body_small slds-text-color_error">{!v.fileName} </div>                    
+                </aura:if>                
+                <!--   use aura:if for show-hide the loading spinner image-->
+                <aura:if isTrue="{!v.showLoadingSpinner}">
+                    <div class="slds-text-body_small slds-text-color_error">Uploading...
+                        <img src="/auraFW/resources/aura/images/spinner.gif" class="spinner-img" alt="Loading"/>'
+                    </div>
+                </aura:if>
+                <br/><br/>
+                <aura:if isTrue="{!v.photoFrame}">
+                    <button class="slds-button slds-button_brand" onclick="{!c.doSave}">Upload profile</button>
+                    <br/><br/>  
+                </aura:if>
+                <aura:if isTrue="{!v.EditOption2}">            
+                    <lightning:button iconName="utility:edit"  variant="success" label="Edit" title="Success" onclick="{! c.handleClick}"/>
+                </aura:if>
+                <br/>
+            </div> <b>Current User Information</b>
+            <lightning:input type="text" name="input1"  label="Name field" disabled="{!v.visibileInputBox}" value="{!v.oUser.Name}"/>        
+            <lightning:input type="text" name="input1"  label="First Name field"  disabled="{!v.visibileInputBox}" value="{!v.oUser.FirstName}"/>
+            <lightning:input type="text" name="input1"  label="Last Name field"  disabled="{!v.visibileInputBox}" value="{!v.oUser.LastName}"/>
+            <lightning:input type="text" name="input1"  label="Email Name field"  disabled="{!v.visibileInputBox}" value="{!v.oUser.Email}"/>
+            <lightning:input type="text" name="input1"  label="Username field"  disabled="{!v.visibileInputBox}" value="{!v.oUser.Username}"/>
+            <lightning:input type="Checkbox" name="input1"  label="IsActive field"  disabled="{!v.visibileInputBox}" value="{!v.oUser.IsActive}"/>
+            <lightning:input type="text" name="input1"  label="TimeZoneSidKey field"  disabled="{!v.visibileInputBox}" value="{!v.oUser.TimeZoneSidKey}"/>
+            <lightning:input type="text" name="input1"  label="Country" disabled="{!v.visibileInputBox}" value="{!v.oUser.Country}"/>
+            <br/>
+            <br/>
+            <aura:if isTrue="{!v.EditOption}">        
+                <lightning:button iconName="utility:save"  variant="success" label="save" title="Success" onclick="{!c.handleClick2}"/>
+                <lightning:button iconName="utility:back"  variant="success" label="cancel" title="Success" onclick="{!c.cancel2}"/>
+            </aura:if>
+        </div>
+    </div>
+</aura:component>

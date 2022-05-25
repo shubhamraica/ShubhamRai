@@ -1,0 +1,36 @@
+<aura:component controller ="CreateNewAccountWithFiveFieldsHandler">
+    <aura:attribute name="AccountName" type="String"/>
+    <aura:attribute name="NumberOfEmployees" type="Integer"/>
+    <aura:attribute name="YearStarted" type="String"/>
+    <aura:attribute name="AnnualRevenue" type="Integer"/>
+    <aura:attribute name="Industry" type="String"/>
+    <aura:if isTrue="{!v.toast}">
+        <div class="slds-notify_container slds-is-relative">
+            <div class="{!v.toaststatus}" role="status">
+                <span class="slds-assistive-text">success</span>
+                <span class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
+                </span>
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small" style="text-align:center;">{!v.toastmessage}</h2>
+                </div>
+                <div class="slds-notify__close">
+                    <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close">
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+    <form class="slds-form-element__control" Style="margin:auto; width:30%;box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;padding:20px 15px 30px 15px;border-radius:4px;margin:80px auto;">
+        <div class="slds-m-around_xx-small">
+            <lightning:layout horizontalAlign="spread" verticalAlign="center" multipleRows="true" ><img src="http://britishchessnews.com/wp-content/uploads/2019/09/109879063-user-avatar-icon-sign-profile-symbol.jpg"/> </lightning:layout>
+        </div>
+        <lightning:input name="input1" label="Account Name" placeholder="Enter Account Name..." value="{!v.AccountName}" required="true"/><br/>
+        <lightning:input name="input2" label="Number of employees" placeholder="Enter NumberOfEmployees..." value="{!v.NumberOfEmployees}" required="true"/><br/>
+        <lightning:input name="input4" label="Year started" title = "in format 1990" placeholder="Enter YearStarted..." value="{!v.YearStarted}"/><br/>
+        <lightning:input name="input5" label="Annual revenue" title = "annual revenue of company" placeholder="Enter AnnualRevenue..." value="{!v.AnnualRevenue}"/><br/>
+        <lightning:input name="input6" label="Industry" title = "industry name" placeholder="Enter Industry..." value="{!v.Industry}"/><br/>
+        <div class="slds-align_absolute-center"><lightning:button variant="brand" label="Insert Account" iconName="utility:adduser" iconPosition="left" onclick="{! c.handleClick }" /></div>
+        <div id="test"></div>
+    </form>
+</aura:component>

@@ -1,0 +1,121 @@
+<aura:component controller="EmailInfo" implements="force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,force:hasRecordId,force:hasSObjectName">
+    <aura:attribute name="options" type="User" default="[]"/>
+    <aura:attribute name="ccLink" type="boolean" default="true" />
+    <aura:attribute name="ccLinkElement" type="boolean" default="false" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit1}" />
+    <aura:attribute name="bodyval" type="string" default='' />
+    <aura:handler name="change" value="{!v.bodyval}" action="{!c.onInputRichText}" />
+    <aura:attribute name="contactLead" type="List" default="null"/>
+    <aura:attribute name="onShowList" type="boolean" default="false" />
+    <aura:attribute name="iconName" type="String" default="standard:contact"/>
+    <aura:attribute name="iconName1" type="String" default="standard:lead"/>
+    <aura:attribute name="onpill" type="boolean" default="false"/>
+    <aura:attribute name="inputValue" type="String" default=''/>
+    
+    <aura:attribute name="pillValueList" type="list" />
+    <aura:attribute name="onShowListCc" type="boolean" default="false" />
+    <aura:attribute name="pillValueListCc" type="list" />
+    <aura:attribute name="onShowListBcc" type="boolean" />
+    <aura:attribute name="pillValueListBcc" type="list" />
+    
+    <aura:attribute name="onShowAttach" type="boolean" default="false" />
+    <aura:attribute name="attachmentDataList" type="List" />
+    <aura:attribute name="onShowError" type="boolean" default="false" />
+    <aura:attribute name="errorMessage" type="string" />
+    <aura:attribute name="bodyValue" type="String" />
+    <aura:attribute name="checkboxList" type="List" />
+    <aura:attribute name="selectedCount" type="integer" default="0" />
+    <aura:attribute name="onVisibleAddbutton" type="boolean" default="false" />
+    <aura:attribute name="onInvisibleAddbutton" type="boolean" default="true" />
+    <aura:attribute name ="selectedFileList" type="list" default="[]"/>
+    <aura:attribute name="onselctedFile" type="boolean" default="false"/>
+    <aura:attribute name="searchAttachDataList" type="list" />
+    <aura:attribute name="isSpinner" type="boolean" default ="false" />
+    <aura:attribute name="selectListinAdd" type = "List" />
+    <aura:attribute name="FromEmail" type = "string" />
+    <aura:attribute name="onBodyBorderColor" type="boolean" default="false" />
+    <aura:attribute name="subjectValue" type="string" default=''/>
+    <aura:attribute name="spinnerAfterSendEmail" type="string" default="false" />
+    <aura:attribute name="fileStorage" type="list" default="[]" /> 
+    <div class="slds-box ">
+        <aura:if isTrue="{!v.onselctedFile}">            
+            <aura:iteration items="{!v.selectedFileList}" var="selectedFiles">
+                <div class="slds-m-bottom_medium">
+                    <a> <lightning:pill label="{!selectedFiles.Title}" onremove="{! c.closeAttachment }" name="{!selectedFiles.Id}" class="colorstyle" onclick="{!c.onPriviewFile}">
+                        <aura:set attribute="media">
+                            <lightning:icon iconName="{!selectedFiles.fileIcon}" alternativeText="file doc" class="styleBorder"/>
+                        </aura:set>
+                        </lightning:pill>
+                    </a>
+                </div>
+            </aura:iteration>            
+        </aura:if>
+        <lightning:helptext content="Attach file" iconName="utility:attach" onclick="{!c.onAttachfile}"/>
+    </div>
+    <aura:if isTrue="{!v.onShowAttach}">    
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">                        
+                        <lightning:buttonIcon class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" iconName="utility:close" variant="border-inverse" onclick="{!c.onCutBtn}">
+                        </lightning:buttonIcon>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Select Files</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-left_medium slds-p-right_medium scrollclass" id="modal-content-id-1">
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 ">                                
+                                <lightning:fileUpload
+                                                      name="fileUploader"
+                                                      multiple="true"
+                                                      accept=".pdf, .png, .jpg, .csv"
+                                                      recordId="{!v.recordId}"
+                                                      onuploadfinished="{!c.handleUploadFinished}" />
+                            </div>
+                     
+                        </div>
+                        <div class="slds-grid slds-wrap slds-p-top_none">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 ">
+                                <div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+                                    <div class="slds-p-top_medium" style="margin-left:-16px">                                        
+                                        <ul>
+                                            <li class="slds-is-active"><a href="javascript:void(0);" class="slds-navigation-list--vertical__action slds-text-link--reset" aria-describedby="entity-header">Owned by Me</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_8-of-12 slds-border_left slds-p-top_medium slds-scrollable_y scrollabletable">
+                                <aura:if isTrue="{!v.isSpinner}">
+                                    <div class="exampleHolder">
+                                        <lightning:spinner alternativeText="Loading" size="small" />
+                                    </div>
+                                </aura:if>                                
+                                <table class="slds-table_bordered slds-table_cell-buffer slds-cell-buffer_top ">
+                                    <tbody>
+                                        <aura:iteration items="{!v.attachmentDataList}" var="attachValue">
+                                            <tr>
+                                                <td style="padding-top:10px;padding-bottom:10px;"> <lightning:input type="checkbox" text="{!con.Id}" aura:id='checkid' value="{!attachValue.Title+','+ attachValue.FileType +','+ attachValue.Id}" onchange="{!c.onCheck}"/> </td>
+                                                <td style="padding-top:10px;padding-bottom:10px;"><lightning:icon iconName="{!attachValue.fileIcon}" alternativeText="Doc image" /></td>
+                                                <td class="slds-p-left_x-small" style="padding-top:10px;padding-bottom:10px;">{!attachValue.Title}<p><lightning:formattedDateTime value="{!attachValue.CreatedDate}" year="numeric" day="2-digit" month="short" timeZone="UTC"/> . {!attachValue.ContentSize}Kb . {!attachValue.FileExtension}</p></td>
+                                            </tr>
+                                        </aura:iteration>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="Cancel" title="Cancel" onclick="{! c.onCancelAttachBtn }"/>                        
+                        <aura:if isTrue="{!v.onInvisibleAddbutton}">
+                            <lightning:button variant="brand" label="Add" disabled="true" title="Add" />
+                        </aura:if>                        
+                        <aura:if isTrue="{!v.onVisibleAddbutton}">
+                            <lightning:button variant="brand" title="Add" onclick="{!c.onAddFile}" >
+                                Add ({!v.selectedCount})
+                            </lightning:button>
+                        </aura:if>                        
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

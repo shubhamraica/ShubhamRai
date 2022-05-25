@@ -1,0 +1,26 @@
+.THIS .emailstyle {
+border:none;
+outline:none;
+
+}
+.THIS .toccbcc{
+padding: 5px;
+border:1px solid #D9DBDD;
+margin-left: 0px;
+border-radius:4px;
+}
+.THIS .CustomLookupAccountRelatedTo .fullWidth {
+width: 100%!important;
+transform: translate(0px, 14px);
+margin-bottom:14px;
+}
+.THIS .cMultiObjectLookup .fullWidth {
+width: 100%!important;
+transform: translate(0px, 14px);
+margin-bottom:14px;
+}
+.THIS .cMultiObjectLookup3 .fullWidth {
+width: 100%!important;
+margin-bottom:14px;
+transform: translate(0px, 17px);
+}

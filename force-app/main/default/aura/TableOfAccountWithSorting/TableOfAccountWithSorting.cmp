@@ -1,0 +1,16 @@
+<aura:component controller="TableOfAccountWithSortingHandler" implements="flexipage:availableForAllPageTypes">
+    <!--Declare Attributes-->  
+    <aura:attribute name="ListOfContact" type="contact[]"/>
+    <aura:attribute name="isAsc" type="boolean" default="true"/> 
+    <aura:handler name="init" value="{!this}" action="{!c.loadContactList}"/>
+    <div class="box" style="text-align:center;">
+        <table id="one">
+            <th style="text-align:center;background-color:grey;color:#fff;font-size:200%;">LastName</th>
+            <aura:iteration items="{!v.ListOfContact}" var="con">  
+                <tr><div class="slds-truncate">{!con.LastName}</div></tr>
+            </aura:iteration>
+            <tr style="background-color:grey;color:white;font-size:200%;padding:5px;" id="orderBy">The list is now in ASC Order.</tr>
+        </table>
+        <lightning:button variant="brand"  label="SORT! SORT!! SORT!!!" onclick="{! c.sortLastName }"/>
+    </div>
+</aura:component>

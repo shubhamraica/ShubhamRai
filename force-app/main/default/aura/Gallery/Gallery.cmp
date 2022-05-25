@@ -1,0 +1,65 @@
+<aura:component controller="GalleryApex" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:handler name="init" value="this" action="{!c.doInit1}"/>
+    <aura:attribute name="prefixURL" type="String" default="/sfc/servlet.shepherd/version/download/"/>
+    <aura:attribute name="contents" type="List" default="[]"/>
+    <aura:attribute name="displayImg" type="String" default="[]"/> 
+    <aura:attribute name="onShowAttach" type="boolean" default="false" /> 
+    
+    <!--UPLOAD-->
+    <div class="slds-clearfix slds-m-bottom_xx-small">
+        <lightning:button label="Upload" iconName="utility:upload" iconPosition="right" class="slds-button slds-button_brand slds-float_right" onclick="{! c.onAttachfile}" />
+    </div>
+    
+    <!--UPLOADER MODAL-->
+    <aura:if isTrue="{!v.onShowAttach}">        
+        <div>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">     
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Select Files</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-left_medium slds-p-right_medium scrollclass" id="modal-content-id-1">
+                        <c:fileUpload/> 
+                        <table style="border:2px solid grey;margin:10px 0px;">
+                            <tr style="background-color:#EAEAEA;">
+                                <th style="padding:15px;">Image</th>
+                                <th style="padding:15px;">Title</th>
+                                <th style="padding:15px;">Priority</th>
+                            </tr> 
+                            <aura:iteration items="{!v.contents}" var="x">
+                                <tr style="border:1px solid grey;padding:5px;">
+                                    <td>
+                                        <img src="{!v.prefixURL + x.Id}" width="100" height="auto"/>         
+                                    </td>
+                                    <td><lightning:input value="{!x.Title}"/></td>
+                                    <td><lightning:input value="{!x.Priority__c}"/></td>
+                                </tr>
+                            </aura:iteration>
+                        </table>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="Cancel" onclick="{! c.onCancelAttachBtn }"/>  
+                        <lightning:button label="Add" variant="brand" onclick="{!c.onAddFile}" />                 
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    
+    <!--CONTAINER-->
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_3-of-3 displayImgContainer">
+            <img src="{!v.displayImg}" height="350px" width="100" class="displayImg"/> 
+        </div>
+    </div>
+    
+    <!--SLIDER-->
+    <div class="slds-list_horizontal slds-size_3-of-3" style="overflow:auto;">
+        <aura:iteration items="{!v.contents}" var="content">
+            <img src="{!v.prefixURL + content.Id}" class="sliderImg" data-id="{!v.prefixURL + content.Id}" onclick="{!c.change}"/>         
+        </aura:iteration>
+    </div>
+    
+</aura:component>

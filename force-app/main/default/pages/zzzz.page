@@ -1,0 +1,74 @@
+<apex:page controller="Invoicecontroller" renderAs="pdf" showHeader="false">
+    <html>
+        <body>
+            <div style="width:100%;font-family:sans-serif;"> 
+                <div style="float:left; width:50%;">
+                    <h3 style ="Color:blue;size:2;">CLOUD ANALOGY</h3><br/>
+                    A-17 GF,near Birlasoft,sector 63<br/>
+                    NOIDA<br/>
+                    9875648265
+                    <p style ="background-color:blue;color:white"><b>BILL TO</b></p>
+                    <apex:repeat value="{!Contactobj}" var="con" rendered="true">
+                        {!con.name}<br/>
+                        cloud analogy<br/>
+                        {!con.MailingStreet}<br/>
+                        {!con.MailingCity}<br/>
+                        {!con.Phone}<br/>
+                        {!con.Email}<br/>
+                    </apex:repeat>
+                </div>
+                <div style="float:right; width:30%; ">
+                    <h1 style ="size:2;color:blue">INVOICE #</h1><br/>
+                    <table style="width:100%;border-collapse: collapse;">
+                        <tr style ="background-color:blue;color:white">
+                            <th>INVOICE</th>
+                            <th>DATE</th>
+                        </tr>
+                        <tr>
+                            <td>2387</td>
+                            <td>{!dateVar}</td>
+                        </tr>
+                    </table><br/	>
+                    <table style="width:100%;border-collapse: collapse;">
+                        <tr style ="background-color:blue;color:white">
+                            <th>CUSTOMER ID</th>
+                            <th>TERMS</th>
+                        </tr>
+                        <tr>
+                            <td>12345</td>
+                            <td>Something</td>
+                        </tr>
+                    </table>
+                    <br/><br/>
+                </div>
+                <div style="float:left; width:100%; ">
+                    <table style="width:100%;border-collapse: collapse;" border="1">
+                        <tr style ="background-color:blue;color:white">
+                            <th>DESCRIPTION</th>
+                            <th>QTY</th>
+                            <th>UNIT PRICE</th>
+                            <th>AMOUNT</th>
+                        </tr>    
+                        <apex:repeat value="{!oliobj}" var="oli" rendered="true">
+                            <tr>
+                                <td>{!oli.description}</td>
+                                <td>{!oli.quantity}</td>
+                                <td>{!oli.unitprice}</td>
+                                <td>{!oli.unitprice *oli.quantity}</td>
+                            </tr> 
+                        </apex:repeat>
+                        <tr>
+                            <td style ="background-color:#fff;color:blue;text-align:center;"><i>Thank You For your business!</i></td>
+                            <td style ="text-align:center;" colspan="2"><b>SubTotal</b></td>
+                            <td >{!sum}</td>
+                        </tr>  
+                    </table>
+                    <p style ="text-align: center;"><b>
+                        If you have any question about this invoice ,please contact<br/>
+                        [Shubham Rai,1234567890,shubhamrai@gmail.com]</b>
+                    </p>
+                </div>
+            </div>
+        </body>
+    </html>
+</apex:page>

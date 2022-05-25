@@ -1,0 +1,33 @@
+.THIS .emailstyle {
+    border:0px solid green ;
+    outline:0px dotted red;
+    line-height:24px;
+}
+.THIS .toccbcc{
+    padding: 4px 0px; 
+    border:1px solid #D9DBDD;
+    margin-left: 0px;
+    border-radius:4px;
+}
+
+
+.THIS .cMultiObjectLookup2 .fullWidth {
+    width: 100%!important;
+    transform: translate(0px, 13px);
+}
+
+
+.THIS .fullWidth {
+    width: 100% !important;
+}
+.THIS .slds-pill__label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%!important;
+    line-height: 26px;
+    background-color:#F3F2F2;
+}
+.THIS .color{
+    background-color:#F3F2F2;
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuraDefinitionBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <description>Create an aura component that will display all of the objects in the org as a picklist. and if we select the object from picklist then
+another picklist will display the fields name.</description>
+</AuraDefinitionBundle>

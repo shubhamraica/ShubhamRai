@@ -1,0 +1,61 @@
+<aura:component controller="ActivityTabHandler" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+     <aura:handler name="init" value="{!this}" action="{!c.myAction}"/>
+    <aura:attribute name="supportsPopOut" type="Boolean" default="false" />
+    <aura:attribute name="Name" type="list"/>
+    <aura:attribute name="allData" type="List" />
+    <aura:attribute name="relatedto" type="list"/>
+    <aura:attribute name="subjectOptions" type="List" default="[]"/>
+    <aura:attribute name="recordList" type="List" default="[]"/>
+    <aura:attribute name="statusOptions" type="List" default="[]"/>
+    <aura:attribute name="taskObj" type="Task" default="{'sObjectType':'Task','Subject':'', 'ActivityDate':'','Status':'','OwnerId':'','WhoId':'','WhatId':''}"/>
+    <aura:attribute name="taskLogObj" type="Task" default="{'sObjectType':'Task','Subject':'', 'WhoId':'','WhatId':'','Description':''}"/>
+    <aura:attribute name="trueFalse" type="boolean" default="false"/>  
+    <aura:attribute name="showHidePage" type="boolean" default="true"/> 
+    <aura:attribute name="trueFalsetime1" type="boolean" default="true"/> 
+    <aura:attribute name="trueFalsetime2" type="boolean" default="false"/> 
+    <aura:attribute name="showPageError" type="boolean" default="false"/> 
+    <aura:attribute name="showPageErrorStatus" type="boolean" default="false"/>
+    <aura:attribute name="showPageErrorAssigned" type="boolean" default="false"/> 
+    <aura:attribute name="subjectName" type="String"/>
+    <aura:attribute name="objectList" type="List" default="[{label:'Contact', APIName:'contact', fieldName: 'name', iconName: 'standard:contact'}]" />
+    <aura:attribute name="objectList2" type="List" default="[{label:'Account', APIName:'Account', fieldName: 'name', iconName: 'standard:account'}]"/>
+    <aura:attribute name="objectList3" type="List" default="[{label:'People', APIName:'user', fieldName: 'name', iconName: 'standard:user'}]"/>
+    <aura:attribute name="eventObj" type="event" default="{'sObjectType':'event', 'Subject':'', 'StartDateTime':'', 'EndDateTime':'', 'IsAllDayEvent':'', 'WhoId':'', 'WhatId':'', 'OwnerId':'', 'Location':''}"/>   
+    
+    <!--SUBJECT-->
+    <div class="slds-form-element slds-m-bottom--medium">
+        <label class="slds-form-element__label" for="text-input-id-1">Subject</label>
+        <div class="slds-input-has-icon slds-input-has-icon_right">
+            <lightning:icon iconName="utility:search" size="x-small" class="slds-icon slds-input__icon slds-input__icon_right"/>
+            <input type="text" autocomplete="on" oninput="{!c.myFunction}" aura:id="subject" id="search" value="{!v.taskLogObj.Subject}" class="slds-input" onclick="{!c.subjectMethod}" />
+        </div>
+    </div>
+    <aura:if isTrue="{!v.trueFalse}">
+        <div class="myUL">
+            <ul>
+                <aura:iteration items="{!v.recordList}" var="a">
+                    <li class="item-li" onclick="{!c.change}" data-id="{!a.label}">{!a.label}</li>
+                </aura:iteration>
+            </ul>
+        </div>
+    </aura:if>
+    
+    <!--COMMENTS-->
+    <lightning:textarea name="input1" label="Comments" value="{!v.taskLogObj.Description}" maxlength="300"/>
+    
+    <!--NAME-->
+    <div style="margin-bottom:-17px;" class="slds-m-top_small">
+        <label class="slds-form-element__label" for="text-input-id-1">Name</label>
+    </div>
+    <c:MultiObjectLookup objectList="{!v.objectList}" aura:id="whoid" value="{!v.taskLogObj.WhoId}" label="" />
+    
+    <!--RelatedTo-->
+    <div style="margin-bottom:-17px;" class="slds-m-top_small">
+        <label class="slds-form-element__label" for="text-input-id-1">Realted To</label>
+    </div>
+    <c:MultiObjectLookup2 objectList="{!v.objectList2}" aura:id="whatid" value="{!v.taskLogObj.WhatId}" label="" />
+    
+    <!--Save-->
+    <button variant="brand" class="slds-float_right slds-button slds-button--brand slds-m-top_x-small slds-m-bottom_none" onclick="{!c.handleLogClick}">Save</button>
+    
+</aura:component>

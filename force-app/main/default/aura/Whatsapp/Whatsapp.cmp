@@ -1,0 +1,38 @@
+<aura:component controller = "SendToWhatsapp" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <lightning:empApi aura:id="empApi"/>
+    <aura:handler name="init" value="this" action="{!c.HandleClick}"/>
+    <aura:attribute name="MessageBody" type="String" default=""/>
+    <aura:attribute name="toSendWA" type="String" default="whatsapp:+917042937295"/>
+    <aura:attribute name="GetMessageBody" type="List" default=""/>
+    
+    <div class = "container">
+        <!--TYPE WHATSAPP Mnumber-->
+        <lightning:input value="{!v.toSendWA}" label="Please enter recipient number"/> 
+        
+        <!--TYPE WHATSAPP MESSAGE-->
+        <lightning:input value="{!v.MessageBody}" label="Please enter your message"/> 
+        
+        <!--SEND BUTTON-->
+        <lightning:button label="Send" iconName="utility:send" iconPosition="right" class="slds-button slds-button_brand slds-m-vertical_x-small" onclick="{! c.HandleClick }" />
+       
+        <!--GET WHATSAPP MESSAGE-->
+        <aura:iteration items="{!v.GetMessageBody}" var="x">
+            <aura:if isTrue = "{!and(x.direction == 'inbound', x.fromWA == v.toSendWA)}">
+                <div class="slds-clearfix">
+                    <div class = "slds-float_left leftChat">
+                        <p>{!x.msgBody}</p>
+                        <p class = "date_sent">{!x.date_sent}</p> 
+                    </div>  
+                </div>
+            </aura:if>
+            <aura:if isTrue = "{!and(x.direction == 'outbound-api', x.toWA == v.toSendWA)}">
+                <div class="slds-clearfix">
+                    <div class = "slds-float_right rightChat">
+                        <p >{!x.msgBody}</p>
+                        <p class = "date_sent">{!x.date_sent}</p> 
+                    </div> 
+                </div>
+            </aura:if>
+        </aura:iteration>
+    </div>
+</aura:component>

@@ -1,0 +1,51 @@
+<apex:page standardController="Account" renderAs="pdf">
+    <head>
+        <style type="text/css">
+            .topBar{
+            border:1px solid red;
+            width:100%;
+            }
+            .topBarItem{
+            border:1px solid green;
+            width:22%;
+            display:inline-block;
+            }
+            @page{
+            size:A3 landscape;
+            margin:0.0in;
+            margin-top:-0.0in;
+            padding:0.0;
+            }
+        </style>
+    </head>
+    <div>
+        <div class="topBar">
+            <div class="topBarItem"><img src="{!$Resource.tatewood}"/></div>
+            <div class="topBarItem"><img src="{!$Resource.forSale}"/></div>
+            <div class="topBarItem"><img src="{!$Resource.tatewood}"/></div>
+            <div class="topBarItem"><img src="{!$Resource.forSale}"/></div>
+        </div>
+        <div style="clear:both;">
+            <div style="width:48%;border:1px solid red;float:left;"></div>
+            <div style="width:48%;border:1px solid red;float:right;"></div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+    <table style="width:100%;">
+        <tr style="border:2px solid red;width:100%;">
+            <td style="width:100%;"><img width="100%" src="{!$Resource.random}"/></td>
+        </tr>
+    </table>
+    
+    <table style="width:100%;" >
+        <tr>
+            <td style="width:50%;">
+                geer
+            </td>
+            <td style="width:50%;">
+                ger
+            </td>
+        </tr>
+    </table>
+    
+</apex:page>

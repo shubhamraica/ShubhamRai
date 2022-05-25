@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuraDefinitionBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <description>Create an aura component that will use to sign in using ID and password in contacts object(create Username and password field).
+and if the user gets successfully login then display a message that you are successfully Logged In.</description>
+</AuraDefinitionBundle>

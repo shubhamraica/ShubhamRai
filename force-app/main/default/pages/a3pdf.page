@@ -1,0 +1,12 @@
+<apex:page renderAs="pdf">
+<head>
+  <style>
+      @page {
+          size: A5 landscape;    /* landscape or portrait */
+      }
+  </style>
+</head>
+
+<!-- body -->
+
+</apex:page>

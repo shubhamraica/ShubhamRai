@@ -1,0 +1,169 @@
+<aura:component controller = "TelosTouchController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:handler name = "init" value="{!this}" action = "{!c.doInit}" />
+    
+    <aura:attribute name = "ContactList" type = "List" />
+    <aura:attribute name = "LeadList" type = "List" />
+    <aura:attribute name = "selectedClientsList" type = "List" default=""/>
+    
+    <aura:attribute name="PageNumber" type="integer" default="1"/>
+    <aura:attribute name="TotalPages" type="integer" default="0"/>
+    <aura:attribute name="TotalRecords" type="integer" default="0"/>
+    <aura:attribute name="RecordStart" type="integer" default="0"/>
+    <aura:attribute name="RecordEnd" type="integer" default="0"/>
+    
+    <aura:attribute name="PageNumber2" type="integer" default="1"/>
+    <aura:attribute name="TotalPages2" type="integer" default="0"/>
+    <aura:attribute name="TotalRecords2" type="integer" default="0"/>
+    <aura:attribute name="RecordStart2" type="integer" default="0"/>
+    <aura:attribute name="RecordEnd2" type="integer" default="0"/>
+    
+    <div class="slds-grid slds-wrap mainDiv">
+        <div class="slds-col slds-size--5-of-6 slds-medium-size--1-of-1 slds-large-size_2-of-3 leftDiv" style="padding:0px;margin:auto;">
+            <lightning:tabset variant="scoped">
+                <lightning:tab label = "Contact" title="Contact" onactive="{! c.HandleContactClick }">
+                    
+                    <!--RECORDS PER PAGE-->
+                    <div class="slds-clearfix">
+                        <div class="slds-float_right">
+                            <ui:inputSelect aura:id="pageSize" label="Display Records Per Page: " change="{!c.onSelectChange}">
+                                <ui:inputSelectOption text="10" label="10" value="true"/>
+                                <ui:inputSelectOption text="15" label="15"/>
+                                <ui:inputSelectOption text="20" label="20"/>
+                            </ui:inputSelect> 
+                        </div>                            
+                    </div>
+                    
+                    <!--CONTACT SEARCH BAR-->
+                    <lightning:input type="text" label = "Search Contact" name="searchKey" aura:id="searchContactKey" onchange="{!c.searchContact}" placeholder = "Search Contacts..." /> 
+                    
+                    <!--CONTACT TABLE-->
+                    <div Style="height:400px;overflow:auto;">
+                        <table class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout">
+                            <thead>
+                                <tr class="slds-text-heading_label">  
+                                    <th class="checkboxWidth"></th>
+                                    <th scope="col"><div class="slds-truncate" title="Name">Name</div></th>
+                                    <th scope="col"><div class="slds-truncate" title="Account Name">Account Name</div></th>         
+                                    <th scope="col"><div class="slds-truncate" title="Phone">Phone</div></th> 
+                                    <th scope="col"><div class="slds-truncate" title="Email">Email</div></th>  
+                                    <th scope="col"><div class="slds-truncate" title="Contact Owner">Contact Owner</div></th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.ContactList}" var="x">
+                                    <tr>  
+                                        <td class="checkboxWidth"><ui:inputCheckbox aura:id="checkbox1" class="slds-checkbox checkBox" value="{!x.selected}" change="{!c.HandleSelectedContacts}" /></td>
+                                        <td><div class="slds-truncate" title="{!x.Name}">{!x.Name}</div></td>
+                                        <td><div class="slds-truncate" title="{!x.AccountName}">{!x.Account.Name}</div></td>                   
+                                        <td><div class="slds-truncate" title="{!x.Phone}">{!x.Phone}</div></td> 
+                                        <td><div class="slds-truncate" title="{!x.Email}">{!x.Email}</div></td> 
+                                        <td><div class="slds-truncate" title="{!x.Owner.Name}">{!x.Owner.Name}</div></td> 
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!--CONTACT PAGINATION-->
+                    <div class="slds-clearfix">
+                        <div class="slds-page-header" role="banner">
+                            <div class="slds-float_right">            
+                                <lightning:button disabled="{!v.PageNumber == 1}" variant="brand" aura:id="prevPage" label="Prev" onclick="{!c.handlePrev}" />            
+                                <lightning:button disabled="{!v.PageNumber == v.TotalPages}" aura:id="nextPage" variant="brand" label="Next" onclick="{!c.handleNext}"/>
+                            </div>
+                            <p class="slds-page-header__title">{!v.RecordStart}-{!v.RecordEnd} of {!v.TotalRecords} | Page {!v.PageNumber} of {!v.TotalPages}</p>
+                        </div>
+                    </div>
+                    
+                </lightning:tab>
+                <lightning:tab label = "Lead" title="Lead" onactive="{! c.HandleLeadClick }">
+                    
+                    <!--RECORDS PER PAGE-->
+                    <div class="slds-clearfix">
+                        <div class="slds-float_right">
+                            <ui:inputSelect aura:id="pageSize2" label="Display Records Per Page: " change="{!c.onSelectChange2}">
+                                <ui:inputSelectOption text="10" label="10" value="true"/>
+                                <ui:inputSelectOption text="15" label="15"/>
+                                <ui:inputSelectOption text="20" label="20"/>
+                            </ui:inputSelect> </div>                            
+                    </div>
+                    
+                    <!--LEAD SEARCH BAR-->
+                    <lightning:input type="text" name="searchKey" label = "Search Lead" aura:id="searchLeadKey" onchange="{!c.searchLead}" placeholder = "Search Leads..." /> 
+                    
+                    <!--LEAD TABLE-->
+                    <div Style="height:400px;overflow:auto;">
+                        <table class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout">
+                            <thead>
+                                <tr class="slds-text-heading_label">  
+                                    <th class="checkboxWidth" scope="col"><div class="slds-truncate"></div></th>
+                                    <th scope="col"><div class="slds-truncate" title="Name">Name</div></th>
+                                    <th scope="col"><div class="slds-truncate" title="Email">Email</div></th>         
+                                    <th scope="col"><div class="slds-truncate" title="Phone">Phone</div></th> 
+                                    <th scope="col"><div class="slds-truncate" title="Company">Company</div></th> 
+                                    <th scope="col"><div class="slds-truncate" title="Owner Alias">Owner Alias</div></th>                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.LeadList}" var="x">
+                                    <tr>  
+                                        <td class="checkboxWidth"><ui:inputCheckbox aura:id="checkbox1" class="slds-checkbox checkBox" value="{!x.selected}" change="{!c.HandleSelectedLeads}" /></td>
+                                        <td><div class="slds-truncate" title="{!x.Name}">{!x.Name}</div></td>
+                                        <td><div class="slds-truncate" title="{!x.Email}">{!x.Email}</div></td>                   
+                                        <td><div class="slds-truncate" title="{!x.Phone}">{!x.Phone}</div></td> 
+                                        <td><div class="slds-truncate" title="{!x.Company}">{!x.Company}</div></td>                   
+                                        <td><div class="slds-truncate" title="{!x.Owner.Name}">{!x.Owner.Name}</div></td> 
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!--LEAD PAGINATION-->
+                    <div class="slds-clearfix">
+                        <div class="slds-page-header" role="banner">
+                            <div class="slds-float_right">            
+                                <lightning:button disabled="{!v.PageNumber2 == 1}" variant="brand" aura:id="prevPage" label="Prev" onclick="{!c.handlePrev2}" />            
+                                <lightning:button disabled="{!v.PageNumber2 == v.TotalPage2}" aura:id="nextPage" variant="brand" label="Next" onclick="{!c.handleNext2}"/>
+                            </div>
+                            <p class="slds-page-header__title">{!v.RecordStart2}-{!v.RecordEnd2} of {!v.TotalRecords2} | Page {!v.PageNumber2} of {!v.TotalPages2}</p>
+                        </div>
+                    </div>
+                    
+                </lightning:tab>
+            </lightning:tabset>
+        </div>
+        <div class="slds-col slds-size--5-of-6 slds-medium-size--1-of-1 slds-large-size_1-of-3 rightDiv" Style="margin:auto;">            
+            <!--SELECTED CLIENTS TEXT-->
+            <p class="SelectedClients">Selected Clients</p>
+            
+            <!--SELECTED CLIENTS TABLE-->
+            <div Style="height:518px;overflow:auto;">
+                <table class="slds-m-vertical_x-small slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout">
+                    <thead>
+                        <tr class="slds-text-heading_label">              
+                            <th scope="col"><div class="slds-truncate" title="Name">Name</div></th>
+                            <th scope="col"><div class="slds-truncate" title="Name">Email</div></th>
+                            <th scope="col" Style="text-align:center;"><div class="slds-truncate" title="Name">Action</div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.selectedClientsList}" var="x" indexVar="i">
+                            <tr>  
+                                <td><div class="slds-truncate">{!x.Name}</div></td>
+                                <td><div class="slds-truncate" title="{!x.Email}">{!x.Email}</div></td>
+                                <td Style="text-align:center;"><button onclick="{!c.RemoveClient}" data-index="{!i}" class="removeBtn"><lightning:icon iconName="action:delete" title = "remove this client" size="x-small"/></button></td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+            </div>     
+            
+            <!--SUBMIT-->
+            <div class="submit slds-clearfix">
+                <lightning:button label="Submit" class="slds-button slds-button_brand slds-m-around_x-small slds-float_right" onclick="{! c.HandleSubmitClick }" />
+            </div>
+        </div>
+    </div>
+</aura:component>

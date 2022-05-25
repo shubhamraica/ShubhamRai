@@ -1,0 +1,4 @@
+<!--2.Create a page that displays the detail page same as of the Account object along with its related lists-->
+<apex:page standardController="Account" renderAs="pdf">
+    <apex:detail relatedList="TRUE"/>
+</apex:page>

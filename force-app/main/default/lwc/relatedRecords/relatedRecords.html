@@ -1,0 +1,237 @@
+<template>
+    <div class="slds-theme_shade slds-card__body slds-card__body_inner">     
+        <div class="firstQuestion">
+            <lightning-tabset> 
+                <template if:false={relConList}><lightning-tab label="Contacts"><div class="slds-p-around_medium slds-align_absolute-center" style="font-weight:bold;border:1px LightGrey;border-style:none none solid none;background:rgb(220, 217, 217);min-height:300px;max-height:300px;">NO RELATED CONTACTS FOUND</div></lightning-tab></template>
+                <template if:true={relConList}>
+                    <lightning-tab label="Contacts">
+                        <div class="slds-grid slds-wrap"
+                            style="border:1px LightGrey;border-style:none none solid none;background:rgb(220, 217, 217);">
+                            <div
+                                class="slds-col slds-size_1-of-12 slds-p-top_x-small slds-align_absolute-center slds-p-bottom_x-small slds-p-right_x-small slds-truncate">
+                                <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;">
+                                </div>
+                            </div>
+                            <div
+                                class="slds-col slds-size_4-of-12 slds-p-top_x-small slds-align_absolute-center slds-p-bottom_x-small slds-p-right_x-small slds-truncate">
+                                <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;">
+                                    <b>Name</b>
+                                </div>
+                            </div>
+                            <div
+                                class="slds-col slds-size_3-of-12 slds-p-top_x-small slds-align_absolute-center slds-p-bottom_x-small slds-p-right_x-small slds-truncate">
+                                <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;">
+                                    <b>Email</b>
+                                </div>
+                            </div>
+                            <div
+                                class="slds-col slds-size_4-of-12 slds-p-top_x-small slds-text-align_right slds-p-bottom_x-small slds-p-right_x-small">
+                                <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;">
+                                    <b>Phone</b>
+                                </div>
+                            </div>
+                        </div>
+                        <template for:each={relConList} for:item="x" for:index="index">
+                            <div class="slds-grid slds-wrap slds-p-around_small"
+                                style="border:1px LightGrey;border-style:none solid solid solid;" key={x.Id}>
+                                <div
+                                    class="slds-col slds-size_1-of-12  slds-align_absolute-center  slds-p-right_x-small slds-truncate">
+                                    <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;">
+                                        <lightning-input type="checkbox" onchange={handleCheck} value={x.Id}>
+                                        </lightning-input>
+                                    </div>
+                                </div>
+                                <div
+                                    class="slds-col slds-size_4-of-12  slds-align_absolute-center  slds-p-right_x-small slds-truncate">
+                                    <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;"
+                                        title={x.Name}>
+                                        {x.Name}
+                                    </div>
+                                </div>
+                                <div
+                                    class="slds-col slds-size_3-of-12  slds-align_absolute-center  slds-p-right_x-small slds-truncate">
+                                    <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;"
+                                        title={x.Email}>
+                                        {x.Email}
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_4-of-12  slds-text-align_right  slds-p-right_x-small">
+                                    <div class="slds-text-align_right slds-truncate" style="width:100%;" title={x.Phone}>
+                                        {x.Phone}
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <div class="sendMail slds-align_absolute-center slds-p-around_medium">
+                            <lightning-button variant="brand" label="Send Mail" title="Send Mail" onclick={handleSendMail}
+                                class="slds-p-right_medium"></lightning-button>
+                            <lightning-button variant="brand" label="Delete" title="Delete" onclick={handleDelete}>
+                            </lightning-button>
+                        </div>
+                        <template if:true={ifSpinner}><lightning-spinner alternative-text="Loading" size="large"></lightning-spinner></template>
+                    </lightning-tab>
+                </template>
+
+                <template if:false={relOppList}><lightning-tab label=" Opportunities"><div class="slds-p-around_medium slds-align_absolute-center" style="font-weight:bold;border:1px LightGrey;border-style:none none solid none;background:rgb(220, 217, 217);min-height:300px;max-height:300px;">NO RELATED OPPORTUNITIES FOUND</div></lightning-tab></template>
+                <template if:true={relOppList}>
+                    <lightning-tab label="Opportunities">
+                        <div class="slds-grid slds-wrap"
+                            style="border:1px LightGrey;border-style:none none solid none;background:rgb(220, 217, 217);">
+                            <div
+                                class="slds-col slds-size_1-of-12 slds-p-top_x-small slds-align_absolute-center slds-p-bottom_x-small slds-p-right_x-small slds-truncate">
+                                <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;">
+                                </div>
+                            </div>
+                            <div
+                                class="slds-col slds-size_4-of-12 slds-p-top_x-small slds-align_absolute-center slds-p-bottom_x-small slds-p-right_x-small slds-truncate">
+                                <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;">
+                                    <b>Name</b>
+                                </div>
+                            </div>
+                            <div
+                                class="slds-col slds-size_3-of-12 slds-p-top_x-small slds-align_absolute-center slds-p-bottom_x-small slds-p-right_x-small slds-truncate">
+                                <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;">
+                                    <b>Stage</b>
+                                </div>
+                            </div>
+                            <div
+                                class="slds-col slds-size_4-of-12 slds-p-top_x-small slds-text-align_right slds-p-bottom_x-small slds-p-right_x-small">
+                                <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;">
+                                    <b>Amount</b>
+                                </div>
+                            </div>
+                        </div>
+                        <template for:each={relOppList} for:item="x" for:index="index">
+                            <div class="slds-grid slds-wrap slds-p-around_medium"
+                                style="border:1px LightGrey;border-style:none solid solid solid;" key={x.Id}>
+                                <div
+                                    class="slds-col slds-size_1-of-12  slds-align_absolute-center  slds-p-right_x-small slds-truncate">
+                                    <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;">
+                                        <lightning-input type="checkbox" onchange={handleCheck} value={x.Id}>
+                                        </lightning-input>
+                                    </div>
+                                </div>
+                                <div
+                                    class="slds-col slds-size_4-of-12  slds-align_absolute-center  slds-p-right_x-small slds-truncate">
+                                    <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;"
+                                        title={x.Name}>
+                                        {x.Name}
+                                    </div>
+                                </div>
+                                <div
+                                    class="slds-col slds-size_3-of-12  slds-align_absolute-center  slds-p-right_x-small slds-truncate">
+                                    <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;"
+                                        title={x.StageName}>
+                                        {x.StageName}
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_4-of-12  slds-text-align_right  slds-p-right_x-small">
+                                    <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;"
+                                        title={x.Amount}>
+                                        {x.Amount}
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <div class="sendMail slds-align_absolute-center slds-p-around_medium">
+                            <lightning-button variant="brand" label="Delete" title="Delete" onclick={handleDelete}>
+                            </lightning-button>
+                        </div>
+                    </lightning-tab>
+                </template>
+
+                <template if:false={relCaseList}><lightning-tab label="Cases"><div class="slds-p-around_medium slds-align_absolute-center" style="font-weight:bold;border:1px LightGrey;border-style:none none solid none;background:rgb(220, 217, 217);min-height:300px;max-height:300px;">NO RELATED CASES FOUND</div></lightning-tab></template>
+                <template if:true={relCaseList}>
+                    <lightning-tab label="Cases">
+                        <div class="slds-grid slds-wrap"
+                            style="border:1px LightGrey;border-style:none none solid none;background:rgb(220, 217, 217);">
+                            <div
+                                class="slds-col slds-size_1-of-12 slds-p-top_x-small slds-align_absolute-center slds-p-bottom_x-small slds-p-right_x-small slds-truncate">
+                                <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;">
+                                </div>
+                            </div>
+                            <div
+                                class="slds-col slds-size_4-of-12 slds-p-top_x-small slds-align_absolute-center slds-p-bottom_x-small slds-p-right_x-small slds-truncate">
+                                <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;">
+                                    <b>Status</b>
+                                </div>
+                            </div>
+                            <div
+                                class="slds-col slds-size_3-of-12 slds-p-top_x-small slds-align_absolute-center slds-p-bottom_x-small slds-p-right_x-small slds-truncate">
+                                <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;">
+                                    <b>Priority</b>
+                                </div>
+                            </div>
+                            <div
+                                class="slds-col slds-size_4-of-12 slds-p-top_x-small slds-text-align_right slds-p-bottom_x-small slds-p-right_x-small">
+                                <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;">
+                                    <b>CaseNumber</b>
+                                </div>
+                            </div>
+                        </div>
+                        <template for:each={relCaseList} for:item="x" for:index="index">
+                            <div class="slds-grid slds-wrap slds-p-around_medium"
+                                style="border:1px LightGrey;border-style:none solid solid solid;" key={x.Id}>
+                                <div
+                                    class="slds-col slds-size_1-of-12  slds-align_absolute-center  slds-p-right_x-small slds-truncate">
+                                    <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;">
+                                        <lightning-input type="checkbox" onchange={handleCheck} value={x.Id}>
+                                        </lightning-input>
+                                    </div>
+                                </div>
+                                <div
+                                    class="slds-col slds-size_4-of-12  slds-align_absolute-center  slds-p-right_x-small slds-truncate">
+                                    <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;"
+                                        title={x.Status}>
+                                        {x.Status}
+                                    </div>
+                                </div>
+                                <div
+                                    class="slds-col slds-size_3-of-12  slds-align_absolute-center  slds-p-right_x-small slds-truncate">
+                                    <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;"
+                                        title={x.Priority}>
+                                        {x.Priority}
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_4-of-12  slds-text-align_right  slds-p-right_x-small">
+                                    <div class="slds-text-align-left slds-truncate" style="width:100%;padding-left:0px;"
+                                        title={x.CaseNumber}>
+                                        {x.CaseNumber}
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <div class="sendMail slds-align_absolute-center slds-p-around_medium">
+                            <lightning-button variant="brand" label="Delete" title="Delete" onclick={handleDelete}>
+                            </lightning-button>
+                        </div>
+                    </lightning-tab>
+                </template>
+            </lightning-tabset>
+        </div>
+
+        <lightning-datatable
+            key-field="id"
+            data={relConList}
+            columns={columns}>
+        </lightning-datatable>
+
+        <div class="secondQuestion">
+            <div class="resultSOSL" style="padding:5px;border:3px dashed rgb(42, 221, 164);border-radius:3px;margin-top:70px;">            
+                <lightning-tabset>
+                    <template for:each={soslAllObjs} for:item="x" for:index="index">
+                        <lightning-tab label={x} key={x} onclick={handleTabClick} active={handleTabClick}></lightning-tab>                    
+                    </template>
+                </lightning-tabset>
+
+                <template for:each={soslAllRecs} for:item="x" for:index="index">
+                    <div class="slds-p-around_medium"
+                        style="border:1px solid rgb(187, 186, 186);border-style:none none solid none;" key={y}>
+                        <p style="color: rgb(131, 128, 131);">id of record where text found : <span
+                                style="color: rgb(0, 0, 0);">{x}</span></p>
+                    </div>
+                </template>             
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuraDefinitionBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <description>Create an Aura component in the opportunity that will update the close date of the opportunity. display component in a pop-up (standard).</description>
+</AuraDefinitionBundle>

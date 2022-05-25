@@ -1,0 +1,16 @@
+<!--9.Develop the logic which shows/ hides the custom button (Test),if the stage is won on opportunity button is shown and if not then not shown.-->
+<apex:page standardController="opportunity" extensions="opportunityhide" >
+    <apex:form >
+        <apex:pageBlock >
+            <apex:outputPanel id="abcd">
+                <apex:commandButton value="test" rendered="{!dadasda}"/>
+            </apex:outputPanel>
+            <apex:inputField value="{!opportunity.stageName}">
+                <apex:actionSupport event="onchange" action="{!onCHeck}" rerender="abcd" />
+            </apex:inputField>
+        </apex:pageBlock>
+    </apex:form> 
+</apex:page>
+
+
+<!--renderasPDFpage-->

@@ -1,0 +1,18 @@
+.THIS {
+    display: block;
+}
+
+.THIS .body {  
+  background: #1D1F20;
+  padding: 16px;
+}
+
+.THIS canvas {
+  border: 1px dotted red;
+}
+.THIS .chart-container {
+  position: relative;
+  margin: auto;
+  height: 80vh;
+  width: 80vw;
+}

@@ -1,0 +1,199 @@
+<apex:page renderAs="PDF" standardStylesheets="false">
+    <head>
+        <style type="text/css" media="print">
+            *{ color:red;!important
+            backgroud-color:red;
+            }
+            td {
+            border: 1px dotted #999;
+            }
+            
+        </style>
+    </head>
+    <div style="width:50%;float:left;">
+        <h4 style="color:#0061a8; font-family:sans-serif;font-size:25px;width:100%;margin-bottom:-10px;">Cloud Analogy</h4>
+        <h5>[Street Address]<br/>[City, ST, ZIP]<br/>[Phone : [1234567890]]</h5>
+        <h5 style="padding:5px;background-color:blue;color:#fff;width:80%;font-family:sans-serif;">BILL TO</h5>
+        <b><p style="font-family:sans-serif;font-size:11px;margin-top:-10px;">[Name]<br/>[Company Name]<br/>[Name]<br/>[City,ST, ZIP]<br/>[Phone]<br/>[Email Address]</p></b>
+    </div>
+    <div style="width:50%; float:right;">
+        <h4 style="color:#0061a8; font-family:sans-serif;font-size:25px;width:100%;margin-bottom:10px;margin-left:250px;">INVOICE</h4>
+        <div style="background-color:blue;width:100%;"><li style="margin:0px 30px;color:#fff;font-family:sans-serif; display:inline;"><b>INVOICE #</b></li><li style="color:#fff;font-family:sans-serif; display:inline;margin:0px 30px;"><b>DATE</b></li></div><br/>
+        <div style="width:100%;margin-top:-50px;"><li style="margin:0px 30px;font-family:sans-serif; display:inline;"><b>20143</b></li><li style="font-family:sans-serif; display:inline;margin:0px 30px;"><b>12/03/2002</b></li></div><br/>
+        <div style="background-color:blue;width:100%;"><li style="margin:0px 30px;color:#fff;font-family:sans-serif; display:inline;"><b>CUSTOMER ID</b></li><li style="color:#fff;font-family:sans-serif; display:inline;margin:0px 30px;"><b>TERMS</b></li></div><br/>
+        <div style="width:100%;margin-top:-50px;"><li style="margin:0px 30px;font-family:sans-serif; display:inline;"><b>12345</b></li><li style="font-family:sans-serif; display:inline;margin:0px 30px;"><b>Due upon Receipt</b></li></div><br/>
+    </div>
+    <div style="width:100%;clear:both;margin-bottom:20px;"></div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <table style="width:100%;border-collapse:collapse;">
+        <tr style="background-color:blue;color:#fff;padding:5px;">
+            <th style="width:50%;margin:0px;font-family:sans-serif;padding:5px 15px">DESCRIPTION</th>
+            <th style="width:10%;margin:0px;font-family:sans-serif;">QTY</th>
+            <th style="width:20%;margin:0px;font-family:sans-serif;">UNIT PRICE</th>
+            <th style="width:20%;margin:0px;font-family:sans-serif;">AOMUNT</th>	
+        </tr>
+        <tr>
+            <td>Service Fee</td>
+            <td>1</td>
+            <td>200</td>
+            <td>200</td>
+        </tr>
+        <tr>
+            <td>Labour 5 hours at $75/hr</td>
+            <td>5</td>
+            <td>75</td>
+            <td>350</td>
+        </tr>
+        <tr>
+            <td>Service Fee</td>
+            <td>1</td>
+            <td>200</td>
+            <td>200</td>
+        </tr>
+        <tr>
+            <td>Labour 5 hours at $75/hr</td>
+            <td>5</td>
+            <td>75</td>
+            <td>350</td>
+        </tr>
+        <tr>
+            <td>Service Fee</td>
+            <td>1</td>
+            <td>200</td>
+            <td>200</td>
+        </tr>
+        <tr>
+            <td>Labour 5 hours at $75/hr</td>
+            <td>5</td>
+            <td>75</td>
+            <td>350</td>
+        </tr>
+        <tr>
+            <td>Service Fee</td>
+            <td>1</td>
+            <td>200</td>
+            <td>200</td>
+        </tr>
+        <tr>
+            <td>Labour 5 hours at $75/hr</td>
+            <td>5</td>
+            <td>75</td>
+            <td>350</td>
+        </tr>
+        <tr>
+            <td>Service Fee</td>
+            <td>1</td>
+            <td>200</td>
+            <td>200</td>
+        </tr>
+        <tr>
+            <td>Labour 5 hours at $75/hr</td>
+            <td>5</td>
+            <td>75</td>
+            <td>350</td>
+        </tr>
+        <tr>
+            <td>Service Fee</td>
+            <td>1</td>
+            <td>200</td>
+            <td>200</td>
+        </tr>
+        <tr>
+            <td>Labour 5 hours at $75/hr</td>
+            <td>5</td>
+            <td>75</td>
+            <td>350</td>
+        </tr>
+        <tr>
+            <td>Service Fee</td>
+            <td>1</td>
+            <td>200</td>
+            <td>200</td>
+        </tr>
+        <tr>
+            <td>Labour 5 hours at $75/hr</td>
+            <td>5</td>
+            <td>75</td>
+            <td>350</td>
+        </tr>
+        <tr>
+            <td>Service Fee</td>
+            <td>1</td>
+            <td>200</td>
+            <td>200</td>
+        </tr>
+        <tr>
+            <td>Labour 5 hours at $75/hr</td>
+            <td>5</td>
+            <td>75</td>
+            <td>350</td>
+        </tr>
+        <tr>
+            <td>Service Fee</td>
+            <td>1</td>
+            <td>200</td>
+            <td>200</td>
+        </tr>
+        <tr>
+            <td>Labour 5 hours at $75/hr</td>
+            <td>5</td>
+            <td>75</td>
+            <td>350</td>
+        </tr>
+        <tr>
+            <td>Service Fee</td>
+            <td>1</td>
+            <td>200</td>
+            <td>200</td>
+        </tr>
+        <tr>
+            <td>Labour 5 hours at $75/hr</td>
+            <td>5</td>
+            <td>75</td>
+            <td>350</td>
+        </tr>
+        <tr>
+            <td>Service Fee</td>
+            <td>1</td>
+            <td>200</td>
+            <td>200</td>
+        </tr>
+        <tr>
+            <td>Labour 5 hours at $75/hr</td>
+            <td>5</td>
+            <td>75</td>
+            <td>350</td>
+        </tr>
+        <tr>
+            <td>Service Fee</td>
+            <td>1</td>
+            <td>200</td>
+            <td>200</td>
+        </tr>
+        <tr>
+            <td>Labour 5 hours at $75/hr</td>
+            <td>5</td>
+            <td>75</td>
+            <td>350</td>
+        </tr>
+        <tr>
+            <td>Service Fee</td>
+            <td>1</td>
+            <td>200</td>
+            <td>200</td>
+        </tr>
+    </table>
+    <p align = "center" style="color:#000; font-family:sans-serif;font-size:10px;margin-top:50px;"><b>If you have any questions about this invoice, please contact<br/>Shubham Rai, +91 1234567890shubhamrai@gmail.com</b></p>
+    
+</apex:page>

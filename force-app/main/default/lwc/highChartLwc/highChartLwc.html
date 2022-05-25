@@ -1,0 +1,53 @@
+<template>
+    <div class="slds-grid mainParentContainer">
+        <!--spinner-->
+        <div if:true={isSpinner}>
+            <lightning-spinner alternative-text="Loading..." variant="brand" size="large"></lightning-spinner>
+        </div>
+
+        <!--SIDEBAR-->
+        <div class="slds-col slds-size_1-of-12">
+            <div class="sideBar">                
+                    <div class="sideBarItem"><lightning-icon icon-name="action:web_link"></lightning-icon></div><br/>
+                    <div class="sideBarItem"><lightning-icon icon-name="action:manage_perm_sets"></lightning-icon></div><br/>
+                    <div class="sideBarItem"><lightning-icon icon-name="action:new_campaign" onclick={handleclick}></lightning-icon></div>
+            </div>
+        </div>
+
+        <!--USER DETAILS-->
+        <template if:true={ifShubham}>
+            <div class="slds-col slds-size_4-of-12">                
+                <div class="userForm">
+                    <template if:true={disabled}>
+                    <div class="threeDots"><lightning-icon icon-name="utility:edit" size="x-small" class="dotIcon" onclick={disableButton} title="edit user details"></lightning-icon></div>
+                    </template>
+                    <template if:false={disabled}>
+                        <div class="threeDots"><lightning-icon icon-name="utility:close" size="x-small" class="dotIcon" onclick={closeEditUser} title="cancel"></lightning-icon></div>
+                        <div class="threeDots"><lightning-icon icon-name="utility:check" size="x-small" class="dotIcon" onclick={editUser} title="save"></lightning-icon></div>
+                    </template>
+                    <div class="userImage">
+                        <img src={userObj.FullPhotoUrl}>
+                    </div>
+                    <template if:false={disabled}>
+                        <div class="slds-align_absolute-center slds-m-top_x-small">
+                            <div class="removeDP"><lightning-icon icon-name="utility:add" size="small" onclick={removeDP} title="upload image" class="slds-text-link_reset slds-m-right_xx-small"></lightning-icon></div>
+                            <div class="removeDP"><lightning-icon icon-name="utility:delete" size="small" onclick={removeDP} title="remove image" class="slds-text-link_reset"></lightning-icon></div>
+                        </div>
+                    </template>
+                    <lightning-input type="text" variant="standard" value={userObj.Username} label="Username" placeholder="type here..." class="lightingInput" onchange={changeUserName} disabled=true></lightning-input>
+                    <lightning-input type="text" variant="standard" value={userObj.CompanyName} label="Company Name" placeholder="type here..." class="lightingInput" onchange={changeUserCompany} disabled={disabled}></lightning-input>
+                    <lightning-input type="text" variant="standard" value={userObj.Email} label="Email" placeholder="type here..." class="lightingInput" onchange={changeUserEmail} disabled=true></lightning-input>
+                    <lightning-input type="text" variant="standard" value={userObj.MobilePhone} label="Mobile" placeholder="type here..." class="lightingInput" onchange={changeUserMobile} disabled={disabled}></lightning-input>
+                </div>
+            </div>
+        </template>
+
+        <!--HIGHCHART-->
+        <template if:true={ifShubham}>
+            <div class="slds-col slds-size_7-of-12 slds-align_absolute-center">
+                <div id="Container" class="highChartDiv">
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

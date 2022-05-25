@@ -1,0 +1,8 @@
+<!--7. Create an inline Vf page that shows the message(Close date is near) on opportunity when a particular opportunity's close date is 5 days ahead.-->
+<apex:page standardController="opportunity" extensions="oppdate">
+    <!--<apex:sectionHeader title="opportunity close date "/>
+    <apex:outputpanel rendered="{!flag}"> Close date is near. </apex:outputpanel>-->
+    
+    
+    
+</apex:page>

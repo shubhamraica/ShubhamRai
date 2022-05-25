@@ -1,0 +1,446 @@
+<aura:component controller="EmailInfo" implements="force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,force:hasRecordId,force:hasSObjectName">
+    
+    <!--From Attribute-->
+    <aura:attribute name="options" type="User" default="[]"/>
+    <aura:attribute name="FromEmail" type = "string" />
+    <!--From Attribute-->
+    
+    <!--To,Cc,Bcc Attribute-->
+    <aura:attribute name="iconName" type="String" default="standard:contact"/>
+    <aura:attribute name="iconName1" type="String" default="standard:lead"/>
+    
+    <!--Condition on self input value to field-->
+    <aura:attribute name="condition" type="integer" default="0"/>
+    <!--Condition on self input value to field-->
+    
+    <!--To,Cc,Bcc Attribute-->
+    
+    <!--To-->
+    <aura:attribute name="onShowList" type="boolean" default="false" />
+    <aura:attribute name="pillValueList" type="list" />
+    <aura:attribute name="contactLead" type="List" default="null"/>
+    <aura:attribute name="ccLink" type="boolean" default="true" />
+    <!--To-->
+    
+    <!--CC-->
+    <aura:attribute name="onShowListCc" type="boolean" default="false" />
+    <aura:attribute name="pillValueListCc" type="list" />
+    <aura:attribute name="ccLinkElement" type="boolean" default="false" />
+    <!--CC-->
+    
+    <!--Bcc-->
+    <aura:attribute name="onShowListBcc" type="boolean" />
+    <aura:attribute name="pillValueListBcc" type="list" default="[{label:'akshanshsingh@cloudanalogy.com',Name:'akshanshsingh@cloudanalogy.com'}]" />
+    <!--Bcc-->
+    
+    <!--init Attribute-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit1}" />
+    <!--init Attribute-->
+    
+    <!--Related To Attribute-->
+    <aura:attribute name="emailobjectList" type="List" default="[{label:'Account', APIName:'account', fieldName: 'name', iconName: 'standard:account'}]" />
+    <!--Related To Attribute-->
+    
+    <!--inputrichtext-->
+    <aura:attribute name="onBodyBorderColor" type="boolean" default="false" />
+    <aura:attribute name="bodyval" type="string" default='' />
+    <aura:handler   name="change" value="{!v.bodyval}" action="{!c.onInputRichText}" />
+    <!--inputrichtext-->
+    
+    <!--Error Message attribute-->
+    <aura:attribute name="onShowError" type="boolean" default="false" />
+    <aura:attribute name="errorMessage" type="string" />
+    <!--Error Message attribute-->
+    
+    <!--Attach attribute-->
+    <aura:attribute name="onShowAttach" type="boolean" default="false" />
+    <aura:attribute name="attachmentDataList" type="List" />
+    <aura:attribute name="subjectValue" type="string" default=''/>
+    <aura:attribute name="spinnerAfterSendEmail" type="string" default="false" />
+    <aura:attribute name="fileStorage" type="list" default="[]" />
+    <aura:attribute name="bodyValue" type="String" />
+    <aura:attribute name="checkboxList" type="List" />
+    <aura:attribute name="selectedCount" type="integer" default="0" />
+    <aura:attribute name="onVisibleAddbutton" type="boolean" default="false" />
+    <aura:attribute name="onInvisibleAddbutton" type="boolean" default="true" />
+    <aura:attribute name ="selectedFileList" type="list" default="[]"/>
+    <aura:attribute name="onselctedFile" type="boolean" default="false"/>
+    <aura:attribute name="searchAttachDataList" type="list" />
+    <aura:attribute name="isSpinner" type="boolean" default ="false" />
+    <aura:attribute name="selectListinAdd" type = "List" />
+    <aura:attribute name="onpill" type="boolean" default="false"/>
+    <aura:attribute name="inputValue" type="String" default=''/>
+    <!--Attach attribute-->
+    
+    <!--Error Toast-->
+   <aura:if isTrue="{!v.onShowError}">
+<div class="desktop forcePageError" role="alert" data-aura-class="forcePageError" style="margin-left:-16px;margin-top:-16px;width:109%;">
+<div class="genericNotification">
+<span class="genericError uiOutputText" data-aura-class="uiOutputText">Review the errors on this page.</span>
+</div>
+<ul class="errorsList" style="padding: 0px;"><li id="liError">{!v.errorMessage}</li></ul>
+</div>
+</aura:if>
+    <!--Error Toast-->
+    
+    <!--From Field-->
+    <lightning:layout class="slds-p-bottom_medium slds-p-left_none">
+        <lightning:layoutItem size="2" class="slds-p-top_large"><abbr class="slds-required">*</abbr>From</lightning:layoutItem>
+        <lightning:layoutItem size="10">
+            <lightning:combobox aura:id="fromId" name="email" value="Email" options="{! v.options}" onchange="{! c.handleOptionSelected }"/>
+        </lightning:layoutItem>
+    </lightning:layout>
+    <!--From Field--> 
+    
+    <!--To,CC,Bcc-->
+    <!--To Field-->
+    <lightning:layout class="slds-p-bottom-large">
+        <lightning:layoutItem size="2" class="slds-p-top_large">
+            <div>To</div>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="10" class="slds-p-around_small">
+            <div onmouseleave="{!c.onCloseToList}">
+              <div class=" slds-gutters showborder BCC-main-component" aura:id="toDivBorder">
+                        <div class="slds-gutters slds-col slds-size_12-of-12 toccbcc">
+                            <aura:iteration items="{!v.pillValueList}" var="item2">
+                                <lightning:pill label="{!item2.Name}" onremove="{! c.handleRemove }">
+                                    <aura:set attribute="media">
+                                        <lightning:icon iconName="{!item2.Icon}" alternativeText="contact"/>
+                                    </aura:set>
+                                </lightning:pill>
+                            </aura:iteration>
+                            <input type="text" variant="label-hidden" id="enter-searchTo" name="email1"
+                                   class="emailstyle"
+                                   onkeyup="{!c.handleClick}"
+                                   />
+                            <p style="z-index: 9001;position: absolute;right:45px;margin-top:-20px;">
+                                <aura:if isTrue="{!v.ccLink}">
+                                    <a onclick="{!c.showCc}">Cc</a>
+                                </aura:if>
+                            </p>
+                        </div>
+                    </div>
+                <!--Dropdown Field-->
+                <div style="position:absolute;z-index:9001;background-color:white;margin-left:-10px;margin-bottom: 10px;">    
+                    <aura:if isTrue="{!v.onShowList}">
+                        <div class="slds-box slds-scrollable_y slds-m-top_xx-small" style="width:343%;height:184px;">
+                            <table class=" slds-table_cell-buffer slds-cell-buffer_top ">
+                                <aura:iteration items="{!v.contactLead}" var="item">
+                                    <aura:iteration items="{!item.contactListWrapper}" var="item1">
+                                        <tr class="slds-border_bottom">
+                                            <a style="text-decoration:none" name="{!item1.Name+',' +item1.Email+','+v.iconName}" onclick="{!c.convertPill}">
+                                                <td class="slds-p-top_x-small slds-p-left_x-small slds-p-bottom_x-small"><lightning:icon iconName= "{!v.iconName}"/></td>
+                                                <td class="slds-p-left_x-small slds-p-top_x-small slds-p-bottom_x-small">{!item1.Name} <p>{!item1.Email}</p></td>
+                                            </a>
+                                        </tr>
+                                    </aura:iteration>
+                                    <aura:iteration items="{!item.leadListWrapper}" var="item2">
+                                        <tr class="slds-border_bottom">
+                                            <a style="text-decoration:none" name="{!item2.Name+',' +item2.Email+','+v.iconName1}" onclick="{!c.convertPill}">
+                                                <td class="slds-p-top_x-small slds-p-left_x-small slds-p-bottom_x-small"><lightning:icon iconName= "{!v.iconName1}"/></td>
+                                                <td class="slds-p-left_x-small slds-p-top_x-small slds-p-bottom_x-small">{!item2.Name}<p>{!item2.Email}</p></td>
+                                            </a>
+                                        </tr>
+                                    </aura:iteration>
+                                </aura:iteration>
+                            </table>
+                        </div>
+                    </aura:if>
+                </div> 
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout >
+    <!--To Field-->
+    <!--CC Field-->
+    <aura:if isTrue="{!v.ccLinkElement}">
+        <lightning:layout class="slds-p-top_xx-small">
+            <lightning:layoutItem size="2" class="slds-p-top_large">
+                <div aura:id="CcValue">Cc</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="10" class="slds-var-p-around_small">
+                <div onmouseleave ="{!c.onCloseccList}">
+                   <div class="slds-grid slds-gutters showborder" aura:id="ccDivBorder">
+                       <div class="slds-gutters slds-col slds-size_12-of-12 toccbcc">
+                           <aura:iteration items="{!v.pillValueListCc}" var="item2">
+                               <lightning:pill label="{!item2.Name}" onremove="{! c.handleRemoveCc }">
+                                   <aura:set attribute="media">
+                                       <lightning:icon iconName="{!item2.Icon}" alternativeText="contact"/>
+                                   </aura:set>
+                               </lightning:pill>
+                           </aura:iteration>
+                           <input type="text" variant="label-hidden" id="enter-searchcc" name="email1" class="emailstyle" onkeyup="{!c.handleClickCc}"/>
+                       </div>
+                    </div>
+                    <!--Dropdown Field-->
+                    <div style="position:absolute;z-index:9001;background-color:white;color:white;margin-left:-10px;">    
+                        <aura:if isTrue="{!v.onShowListCc}">
+                            <div class="slds-box slds-scrollable_y slds-m-top_xx-small"  style="width:343px;height:184px;">
+                                <table class=" slds-table_cell-buffer slds-cell-buffer_top ">
+                                    <aura:iteration items="{!v.contactLead}" var="item">
+                                        <aura:iteration items="{!item.contactListWrapper}" var="item1">
+                                            <tr class="slds-border_bottom" >
+                                                <a  style="box-sizing:content-box;" name="{!item1.Name+',' +item1.Email+','+v.iconName}" onclick="{!c.convertPillCc}">
+                                                    <td class="slds-p-top_x-small slds-p-left_x-small slds-p-bottom_x-small"><lightning:icon iconName= "{!v.iconName}"/></td>
+                                                    <td class="slds-p-left_x-small slds-p-top_x-small slds-p-bottom_x-small">{!item1.Name} <p>{!item1.Email}</p></td>
+                                                </a>
+                                            </tr>
+                                        </aura:iteration>
+                                        <aura:iteration items="{!item.leadListWrapper}" var="item2">
+                                            <tr class="slds-border_bottom">
+                                                <a style="text-decoration:none" name="{!item2.Name+',' +item2.Email+','+v.iconName1}" onclick="{!c.convertPillCc}">
+                                                    <td class="slds-p-top_x-small slds-p-left_x-small slds-p-bottom_x-small"><lightning:icon iconName= "{!v.iconName1}"/></td>
+                                                    <td class="slds-p-left_x-small slds-p-top_x-small slds-p-bottom_x-small">{!item2.Name}<p>{!item2.Email}</p></td>
+                                                </a>
+                                            </tr>
+                                        </aura:iteration>
+                                    </aura:iteration>
+                                </table>
+                            </div>
+                        </aura:if>
+                    </div>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </aura:if>
+    <!--CC Field-->
+    
+    <!--Bcc Field-->
+    <lightning:layout class="slds-p-bottom-large">
+        <lightning:layoutItem size="2" class="slds-p-top_large">
+            <div>Bcc</div>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="10" class="slds-p-around_small">
+            <div onmouseleave ="{!c.onClosebccList}">
+                <div class="slds-grid slds-gutters showborder" aura:id="bccDivBorder">
+                    <div class="slds-gutters slds-col slds-size_12-of-12 toccbcc">
+                        <aura:iteration items="{!v.pillValueListBcc}" var="item2">
+                            <lightning:pill label="{!item2.Name}" onremove="{! c.handleRemoveBcc }">
+                                <aura:set attribute="media">
+                                    <lightning:icon iconName="{!item2.Icon}" alternativeText="contact"/>
+                                </aura:set>
+                            </lightning:pill>
+                        </aura:iteration>
+                        <input type="text" variant="label-hidden" id="enter-searchbcc" name="email1" class="emailstyle" onkeyup="{!c.handleClickBcc}"/>
+                    </div>
+                </div>
+                <div style="position:absolute;z-index:9001;background-color:white;">
+                    <aura:if isTrue="{!v.onShowListBcc}">
+                        <div class="slds-box slds-scrollable_y slds-m-top_xx-small" style="height:184px;width:343px;margin-left:-11px;padding:unset;">
+                            <table class=" slds-table_cell-buffer slds-cell-buffer_top ">
+                                <aura:iteration items="{!v.contactLead}" var="item">
+                                    <aura:iteration items="{!item.contactListWrapper}" var="item1">
+                                        <tr class="slds-border_bottom">
+                                            <a style="text-decoration:none" name="{!item1.Name+',' +item1.Email+','+v.iconName}" onclick="{!c.convertPillBcc}">
+                                                <td class="slds-p-top_x-small slds-p-left_x-small slds-p-bottom_x-small"><lightning:icon iconName= "{!v.iconName}"/></td>
+                                                <td class="slds-p-left_x-small slds-p-top_x-small slds-p-bottom_x-small">{!item1.Name} <p>{!item1.Email}</p></td>
+                                            </a>
+                                        </tr>
+                                    </aura:iteration>
+                                    <aura:iteration items="{!item.leadListWrapper}" var="item2">
+                                        <tr class="slds-border_bottom">
+                                            <a style="text-decoration:none" name="{!item2.Name+',' +item2.Email+','+v.iconName1}" onclick="{!c.convertPillBcc}">
+                                                <td class="slds-p-top_x-small slds-p-left_x-small slds-p-bottom_x-small"><lightning:icon iconName= "{!v.iconName1}"/></td>
+                                                <td class="slds-p-left_x-small slds-p-top_x-small slds-p-bottom_x-small">{!item2.Name}<p>{!item2.Email}</p></td>
+                                            </a>
+                                        </tr>
+                                    </aura:iteration>
+                                </aura:iteration>
+                            </table>
+                        </div>
+                    </aura:if>
+                </div>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+    <!--Bcc Field-->
+    <!--To,CC,Bcc-->
+    
+    <!--Subject Field-->
+    <lightning:layout class="slds-p-bottom_x-large ">
+        <lightning:layoutItem size="2" class="slds-p-top_large">
+            <div>Subject</div>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="10" >
+            <lightning:input aura:id="subjectid" value="{!v.subjectValue}" name="input2" placeholder="Enter Subject..." onchange="{!c.onSubjectHandles}" />
+        </lightning:layoutItem>
+    </lightning:layout>
+    <!--Subject Field-->
+    
+    <!--inputrichtext-->
+    <lightning:layout class="slds-p-bottom_x-large">
+        <lightning:layoutItem size="12">
+            <aura:if isTrue="{!v.onBodyBorderColor}">
+                <div class="bodyborderBodyColorRed" aura:id="bodyBorderId">
+                    <lightning:inputRichText aura:id="bodyid" value="{!v.bodyval}"/>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!!v.onBodyBorderColor}">
+                <div class="bodyborderBodyColorNoRed" aura:id="bodyBorderId">
+                    <lightning:inputRichText aura:id="bodyid" value="{!v.bodyval}"/>
+                </div>
+            </aura:if>
+        </lightning:layoutItem>
+    </lightning:layout>
+    <!--inputrichtext-->
+    
+    <!--file attach-->
+    <aura:if isTrue="{!v.onselctedFile}">
+        <aura:iteration items="{!v.selectedFileList}" var="selectedFiles">
+            <div class="slds-m-bottom_medium">
+                <a> <lightning:pill label="{!selectedFiles.Title}" onremove="{! c.closeAttachment }" name="{!selectedFiles.Id}" class="colorstyle" onclick="{!c.onPriviewFile}">
+                    <aura:set attribute="media">
+                        <lightning:icon iconName="{!selectedFiles.fileIcon}" alternativeText="file doc" class="styleBorder"/>
+                    </aura:set>
+                    </lightning:pill>
+                </a>
+            </div>
+        </aura:iteration>
+    </aura:if>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_12-of-12">
+            <span>
+                <lightning:buttonGroup>
+                   <lightning:buttonIcon iconName="utility:attach" size="small" alternativeText="View More" onclick="{!c.onAttachfile}"/> 
+                    <lightning:buttonIcon iconName="utility:merge_field" size="small" alternativeText="View More" title="View More" />
+                    <lightning:buttonIcon iconName="utility:insert_template" size="small" alternativeText="View More" title="View More" />
+                </lightning:buttonGroup>
+                <lightning:buttonGroup>
+                    <lightning:buttonIcon iconName="utility:preview" size="small" alternativeText="View More" title="View More" />
+                    <lightning:buttonIcon iconName="utility:delete" size="small" alternativeText="View More" title="View More" />
+                    <lightning:buttonIcon iconName="utility:pop_in" size="small" alternativeText="View More" title="View More" />
+                </lightning:buttonGroup>
+            </span>
+        </div>
+    </div>
+    <!--file attach-->
+    
+    <!--Related To Field-->
+    <div style="" class="slds-m-top_small">
+        <label class="slds-form-element__label" for="text-input-id-1">Related to</label>
+    </div>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_10-of-12">
+            <span>
+                
+            </span>
+        </div>
+        <!--Related To Field-->
+        
+        <!--Save Button-->
+        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-12" >
+            <div class="slds-float_right slds-p-bottom_large btn" style="margin-right:-40px;margin-top: 15px;">
+                <lightning:button variant="brand" label="Send" class="sendemail" title="Send" onclick="{!c.sendMail }"/>
+            </div>
+        </div>
+        <!--Save Button-->
+        
+    </div>
+    <aura:if isTrue="{!v.spinnerAfterSendEmail}">
+        <div class="exampleHolder">
+            <lightning:spinner alternativeText="Loading" size="small" />
+        </div>
+    </aura:if>
+    <!--Modal File-->
+    <aura:if isTrue="{!v.onShowAttach}">
+        <div>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" 
+                                              iconName="utility:close" variant="border-inverse" onclick="{!c.onCutBtn}">
+                            <span class="slds-assistive-text">Close</span>
+                        </lightning:buttonIcon>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Select Files</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-left_medium slds-p-right_medium scrollclass" id="modal-content-id-1">
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 ">
+                                <lightning:fileUpload
+                                                      name="fileUploader"
+                                                      multiple="true"
+                                                      accept=".pdf, .png, .jpg, .csv"
+                                                      recordId="{!v.recordId}"
+                                                      onuploadfinished="{!c.handleUploadFinished}" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_8-of-12 slds-p-left_medium slds-border_left" onkeypress = "{!c.onSearchFile}" >
+                                <lightning:input aura:id="enter-search" name="enter-search" type="search" />
+                                
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-wrap slds-p-top_none">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 ">
+                                <div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+                                    <div class="slds-p-top_medium" style="margin-left:-16px">
+                                        
+                                        <ul>
+                                            <li class="slds-is-active"><a href="javascript:void(0);" class="slds-navigation-list--vertical__action slds-text-link--reset"
+                                                                          aria-describedby="entity-header">Owned by Me</a></li>
+                                             <li class="slds-is-active"><a href="javascript:void(0);" class="slds-navigation-list--vertical__action slds-text-link--reset"
+                                                                          aria-describedby="entity-header">Shared With Me</a></li>
+                                             <li class="slds-is-active"><a href="javascript:void(0);" class="slds-navigation-list--vertical__action slds-text-link--reset"
+                                                                          aria-describedby="entity-header">Recent</a></li>
+                                             <li class="slds-is-active"><a href="javascript:void(0);" class="slds-navigation-list--vertical__action slds-text-link--reset"
+                                                                          aria-describedby="entity-header">Following</a></li>
+                                             <li class="slds-is-active"><a href="javascript:void(0);" class="slds-navigation-list--vertical__action slds-text-link--reset"
+                                                                          aria-describedby="entity-header">Libraries</a></li>
+                                             <li class="slds-is-active"><a href="javascript:void(0);" class="slds-navigation-list--vertical__action slds-text-link--reset"
+                                                                          aria-describedby="entity-header">Related Files</a></li>
+                                            <br/>
+                                               <br/>   
+                                               <br/>
+                                               <br/>
+                                             
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_8-of-12 slds-border_left slds-p-top_medium slds-scrollable_y scrollabletable">
+                                
+                                <aura:if isTrue="{!v.isSpinner}">
+                                    <div class="exampleHolder">
+                                        <lightning:spinner alternativeText="Loading" size="small" />
+                                    </div>
+                                </aura:if>
+                                
+                                <table class="slds-table_bordered slds-table_cell-buffer slds-cell-buffer_top ">
+                                    <tbody>
+                                        <aura:iteration items="{!v.attachmentDataList}" var="attachValue">
+                                            <tr>
+                                                <td style="padding-top:10px;padding-bottom:10px;"> <lightning:input type="checkbox" text="{!con.Id}" aura:id='checkid' 
+                                                                                                                    value="{!attachValue.Title+','+ attachValue.FileType +','+ attachValue.Id}" onchange="{!c.onCheck}"/> </td>
+                                                <td style="padding-top:10px;padding-bottom:10px;"><lightning:icon iconName="{!attachValue.fileIcon}" alternativeText="Doc image" /></td>
+                                                <td class="slds-p-left_x-small" style="padding-top:10px;padding-bottom:10px;">{!attachValue.Title}<p><lightning:formattedDateTime
+                                                                                                                                                                                  value="{!attachValue.CreatedDate}" year="numeric" day="2-digit" month="short" timeZone="UTC"/> 
+                                                    . {!attachValue.ContentSize}Kb . {!attachValue.FileExtension}</p></td>
+                                            </tr>
+                                        </aura:iteration>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="Cancel" title="Cancel" onclick="{! c.onCancelAttachBtn }"/>
+                        
+                        <aura:if isTrue="{!v.onInvisibleAddbutton}">
+                            <lightning:button variant="brand" label="Add" disabled="true" title="Add" />
+                        </aura:if>
+                        
+                        <aura:if isTrue="{!v.onVisibleAddbutton}">
+                            <lightning:button variant="brand" title="Add" onclick="{!c.onAddFile}" >
+                                Add ({!v.selectedCount})
+                            </lightning:button>
+                        </aura:if>
+                        
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+        
+        
+    </aura:if>
+    <!--Modal File-->
+</aura:component>

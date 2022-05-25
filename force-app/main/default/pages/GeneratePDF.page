@@ -1,0 +1,6 @@
+<apex:page renderAs="PDF">
+    <div id="companyAddress" style="color:#0061a8; font-family:sans-serif;font-size:28px;width:50%;" >
+        <h4 >Cloud Analogy</h4>
+    </div>
+    <p align = "center" style="color:#000; font-family:sans-serif;font-size:10px;"><b>If you have any questions about this invoice, please contact<br/>Shubham Rai, +91 1234567890shubhamrai@gmail.com</b></p>
+</apex:page>

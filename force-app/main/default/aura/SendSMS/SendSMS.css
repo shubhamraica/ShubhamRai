@@ -1,0 +1,92 @@
+.THIS {
+}
+.THIS .sentTo{    
+    font-size: 14px;
+    font-weight: 600;
+}
+.THIS .addIcon{
+    border:1px solid #e0ebeb;
+}
+.THIS .addIcon:hover{
+    cursor:pointer;
+}
+.THIS .phoneOptionText{
+    font-size:13px;
+    padding:0px 3px;
+}
+.THIS .filter{
+    font-size:13px;
+    font-weight: 600;
+}
+.THIS .conversationStartedBy{
+    border:1px solid #DDDBDA;
+    width:100% ;
+    padding:8px;
+    border-radius:6px 6px 0px 0px;
+}
+.THIS .chatBox{
+    height:250px;
+    width:100%;
+    overflow-y: scroll;
+    border:1px solid #DDDBDA;
+    border-top:0px solid red;
+}
+.THIS .textArea{
+    margin-top:-21px;
+}
+.THIS .leftchat{
+    position: relative;
+    background-color:#1B5297;
+    color:#fff;
+    font-size:13px;
+    border-radius:10px 10px 10px 0px;
+    padding:5px 10px;
+}
+.THIS .leftchat::after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 0;
+    z-index: 1;
+    border-style: solid;
+    border-width: 0 0 7px 7px;
+    border-color: transparent transparent #1b5297 transparent;
+    top: 100%;
+    left: -6px;
+    margin-top: -7.5px;
+}
+.THIS .chat{
+    position: relative;
+    background-color:#1B5297;
+    color:#fff;
+    font-size:13px;
+    border-radius:10px 10px 0px 10px;
+    padding:5px 10px;
+}
+.THIS .chat::after {
+    content: '';
+    position: absolute;
+    display: block;
+    margin-right: 18px;
+    width: 0;
+    z-index: 1;
+    border-style: solid;
+    border-width: 7px 0 0 7px;
+    border-color: transparent transparent transparent #1b5297;
+    top: 100%;
+    right: -25px;
+    margin-top: -8.5px;
+}
+.THIS ::-webkit-scrollbar {
+    width: 10px; 
+}
+.THIS ::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+.THIS ::-webkit-scrollbar-thumb {
+    background-color: #1B5297;
+}
+.THIS ::-webkit-scrollbar-thumb {
+    background-color: #1B5297;
+    border-radius: 20px;
+}

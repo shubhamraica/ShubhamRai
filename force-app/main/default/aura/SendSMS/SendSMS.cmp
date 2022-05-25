@@ -1,0 +1,215 @@
+<aura:component controller='SendSMSController' implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<!-- EMP API component -->
+    <lightning:empApi aura:id="empApi" />
+    
+    <aura:handler name="init" value="this" action="{!c.doInit}"/>
+    
+    <!-- Holds the streaming event subscription -->
+    <aura:attribute name="subscription" type="Map" />
+    
+    <aura:attribute name="MobileNumber" type="String" default=""/>
+    <aura:attribute name="CountryCode" type="String" default="+91" />
+    <aura:attribute name="MessageBody" type="String" default=""/>
+    
+    <aura:attribute name="setbody" type="list" default=""/>
+    <aura:attribute name="setotherbody" type="list" default=""/>
+    <aura:attribute name="setNearestphonebody" type="list" default=""/>
+    <aura:attribute name="setPatientphonebody" type="list" default=""/>
+    <aura:attribute name="setPatientphonebodyRight" type="list" default=""/>
+    
+    <aura:attribute name="currentbody" type="list" default=""/>
+    
+    <aura:attribute name="allchat" type="boolean" default="true"/>
+    <aura:attribute name="otherchat" type="boolean" default="false"/>    
+    <aura:attribute name="Nearestphonechat" type="boolean" default="false"/> 
+    <aura:attribute name="Patientphonechat" type="boolean" default="false"/> 
+    
+    <aura:attribute name="today" type="Date" />
+    <aura:attribute name="todayTime" type="Date" />
+    <aura:attribute name="SMSStartDate" type="Date" />
+    <aura:attribute name="showPatientCheck" type="Boolean" default="true"/>
+    <aura:attribute name="showOtherCheck" type="Boolean" default="true"/>	
+    <aura:attribute name="showNeareastCheck" type="Boolean" default="true"/>
+    <aura:attribute name="liked" type="Boolean" default="false"/>
+    <aura:attribute name="liked2" type="Boolean" default="false"/>
+    <aura:attribute name="liked3" type="Boolean" default="false"/>
+    
+    <aura:attribute name="variantNearest" type="String" default="neutral"/>
+    <aura:attribute name="variantOther" type="String" default="neutral"/>
+    <aura:attribute name="variantPatient" type="String" default="neutral"/>
+    <aura:attribute name="variantAll" type="String" default="neutral"/>
+    
+    <div class="slds-form-element">
+        
+        <!--SMS CONVERSATION-->
+        <div class="slds-grid slds-m-bottom_x-small">
+            <lightning:icon iconName="standard:sms"/>
+            <div style="padding:2px 5px;font-size:20px;"> <b>SMS Conversation</b></div>
+        </div>
+        
+        <!--SEND SMS TO-->
+        <div class="slds-m-bottom_x-small sentTo">Send SMS To</div>
+        
+        <!--SELECT PHONE NUMBER-->
+        <div class="slds-grid slds-m-bottom_x-small">
+            <aura:if isTrue="{!v.showPatientCheck}">
+                <lightning:buttonIconStateful iconName="utility:add" size= "x-small" selected="" onclick="{! c.selectPatient}"/> 
+                <aura:set attribute="else">
+                    <lightning:buttonIconStateful iconName="utility:check" size= "x-small" selected="{! v.liked }" onclick="{! c.selectPatient}"/>            
+                </aura:set>
+            </aura:if> 
+            <div class="phoneOptionText">Neareast Relative/ Caregiver Phone</div>
+        </div>
+        <div class="slds-grid slds-m-bottom_x-small">
+            <aura:if isTrue="{!v.showOtherCheck}">
+                <lightning:buttonIconStateful iconName="utility:add" size= "x-small" selected="" onclick="{! c.selectOther}"/> 
+                <aura:set attribute="else">
+                    <lightning:buttonIconStateful iconName="utility:check" size= "x-small" selected="{! v.liked2 }" onclick="{! c.selectOther}"/>            
+                </aura:set>
+            </aura:if> 
+            <div class="phoneOptionText">Other Phone</div> 
+        </div>
+        <div class="slds-grid slds-m-bottom_x-small">
+            <aura:if isTrue="{!v.showNeareastCheck}">
+                <lightning:buttonIconStateful iconName="utility:add" size= "x-small" selected="" onclick="{! c.selectNeareast}"/> 
+                <aura:set attribute="else">
+                    <lightning:buttonIconStateful iconName="utility:check" size= "x-small" selected="{! v.liked3 }" onclick="{! c.selectNeareast}"/>            
+                </aura:set>
+            </aura:if> 
+            <div class="phoneOptionText">Patient Cell Phone</div>  
+        </div>
+        
+        <!--FILTER-->
+        <div class="slds-m-top_small filter">Filter SMS Conversation</div>
+        
+        <!--BUTTON GROUP-->
+        <lightning:buttonGroup class="slds-m-vertical_x-small">
+            <lightning:button label="Nearest Relative" variant="{!v.variantNearest}" onclick="{!c.Nearestphonechat}" />
+            <lightning:button label="Other Phone" variant="{!v.variantOther}" onclick="{!c.otherphonechat}"/>
+            <lightning:button label="Patient Phone" variant="{!v.variantPatient}" onclick="{!c.Patientphonechat}"/>
+            <lightning:button label="All" variant="{!v.variantAll}" onclick="{!c.Allphonechat}"/>       
+        </lightning:buttonGroup>
+        
+        <!--CONVERSATION STARTED BY-->
+        <div class="slds-box conversationStartedBy slds-align_absolute-center"><lightning:icon iconName="utility:chat" class="slds-border" size= "x-small"/>&nbsp; Conversation started by <b>&nbsp;Shubham Rai <big>•</big> </b>&nbsp; Jun 01, 2021, 12:49 AM</div>
+        
+        <!--CURRENT AND FETCHED CHAT-->
+        <div class="slds-box chatBox">
+            <aura:if isTrue="{!v.allchat}">
+                <div id="oooALL"></div>
+                <!--<aura:iteration items="{!v.setbody}" var="x">                    
+                    <div class="slds-float_right chat">
+                        {!x.Name}
+                    </div><br/><br/>
+                    <div class="slds-float_right" style="font-size:10px;color:grey;margin-top:-10px;font-style: italic;">
+                        {!x.UserName__c}  • <lightning:formattedDateTime value="{!x.CreatedDate}" year="numeric" day="2-digit" month="short" hour="2-digit" minute="2-digit"  timeZone="IST"/>
+                    </div>                    
+                    <br/>
+                </aura:iteration>
+                <aura:iteration items="{!v.currentbody}" var="a">
+                    <div class="slds-clearfix">
+                        <div class="slds-float_right chat">
+                            {!a}
+                        </div>
+                    </div>
+                    <div class="slds-clearfix">
+                        <div style="font-size:10px;color:grey;font-style: italic;" class="slds-float_right">
+                            Shubham Rai • {!v.today},&nbsp; {!v.todayTime}
+                        </div>
+                    </div>
+                </aura:iteration> -->
+            </aura:if>
+            <aura:if isTrue="{!v.otherchat}">
+                <div id="oooOTHER"></div>
+                <!--<aura:iteration items="{!v.setotherbody}" var="x">
+                    <div class="slds-float_right chat">
+                        {!x.Name}
+                    </div><br/><br/>
+                    <div class="slds-float_right" style="font-size:10px;color:grey;margin-top:-10px;font-style: italic;">
+                        {!x.UserName__c}  • <lightning:formattedDateTime value="{!x.CreatedDate}" year="numeric" day="2-digit" month="short" hour="2-digit" minute="2-digit"  timeZone="IST"/>
+                    </div>                    
+                    <br/>
+                </aura:iteration>
+                <aura:iteration items="{!v.currentbody}" var="a">
+                    <div class="slds-clearfix">
+                        <div class="slds-float_right chat">
+                            {!a}
+                        </div>
+                    </div>
+                    <div class="slds-clearfix">
+                        <div style="font-size:10px;color:grey;font-style: italic;" class="slds-float_right">
+                            Shubham Rai • {!v.today},&nbsp; {!v.todayTime}
+                        </div>
+                    </div>
+                </aura:iteration> -->
+            </aura:if>
+            <aura:if isTrue="{!v.Nearestphonechat}">
+                <aura:iteration items="{!v.setNearestphonebody}" var="x">
+                    <div class="slds-float_right chat">
+                        {!x.Name}
+                    </div><br/><br/>
+                    <div class="slds-float_right" style="font-size:10px;color:grey;margin-top:-10px;font-style: italic;">
+                        {!x.UserName__c}  • <lightning:formattedDateTime value="{!x.CreatedDate}" year="numeric" day="2-digit" month="short" hour="2-digit" minute="2-digit"  timeZone="IST"/>
+                    </div>                    
+                    <br/>
+                </aura:iteration>
+                <aura:iteration items="{!v.currentbody}" var="a">
+                    <div class="slds-clearfix">
+                        <div class="slds-float_right chat">
+                            {!a}
+                        </div>
+                    </div>
+                    <div class="slds-clearfix">
+                        <div style="font-size:10px;color:grey;font-style: italic;" class="slds-float_right">
+                            Shubham Rai • {!v.today},&nbsp; {!v.todayTime}
+                        </div>
+                    </div>
+                </aura:iteration> 
+            </aura:if>
+            <aura:if isTrue="{!v.Patientphonechat}">
+                <aura:iteration items="{!v.setPatientphonebody}" var="x">
+                    <div class="slds-float_left leftchat">
+                        {!x.Name}
+                    </div><br/><br/>
+                    <div class="slds-float_left" style="font-size:10px;color:grey;margin-top:-10px;font-style: italic;">
+                        {!x.UserName__c}  • <lightning:formattedDateTime value="{!x.CreatedDate}" year="numeric" day="2-digit" month="short" hour="2-digit" minute="2-digit"  timeZone="IST"/>
+                    </div>                    
+                    <br/>
+                </aura:iteration>
+                <aura:iteration items="{!v.setPatientphonebodyRight}" var="x">
+                    <div class="slds-float_right chat">
+                        {!x.Name}
+                    </div><br/><br/>
+                    <div class="slds-float_right" style="font-size:10px;color:grey;margin-top:-10px;font-style: italic;">
+                        {!x.UserName__c}  • <lightning:formattedDateTime value="{!x.CreatedDate}" year="numeric" day="2-digit" month="short" hour="2-digit" minute="2-digit"  timeZone="IST"/>
+                    </div>                    
+                    <br/>
+                </aura:iteration>
+                <aura:iteration items="{!v.currentbody}" var="a">
+                    <div class="slds-clearfix">
+                        <div class="slds-float_right chat">
+                            {!a}
+                        </div>
+                    </div>
+                    <div class="slds-clearfix">
+                        <div style="font-size:10px;color:grey;font-style: italic;" class="slds-float_right">
+                            Shubham Rai • {!v.today},&nbsp; {!v.todayTime}
+                        </div>
+                    </div>
+                </aura:iteration> 
+            </aura:if>
+        </div>
+        
+        <!--TEXT AREA-->
+        <div class="textArea">
+            <lightning:textarea style="width:100%;" aura:id="body" value="{!v.MessageBody}"/> 
+        </div>
+        
+        <!--SEND-->
+        <div class="slds-clearfix">
+            <lightning:button label="Send" iconName="utility:send" iconPosition="right" class="slds-button slds-button_brand slds-float_right" onclick="{! c.SendingSMScontroller }" />
+            <lightning:button label="Reload" iconName="utility:refresh" iconPosition="right" class="slds-button slds-button_brand slds-float_left" onclick="{! c.doInit }" />
+        </div>
+        
+    </div>
+</aura:component>

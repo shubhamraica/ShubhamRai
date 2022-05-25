@@ -1,0 +1,27 @@
+<aura:component controller="CreateContWithAccountLookupHandler">
+    <aura:handler name="init" value="{!this}" action="{!c.myAction}" />
+    <aura:attribute name="accList" type="List" />
+    <aura:attribute name="conAccountId" type="String" />
+    <aura:attribute name="LastName" type="String"/>
+    <div class="slds-grid slds-wrap slds-m-top_large">
+        <div class="slds-grid slds-col slds-size_1-of-3"></div>
+        <div class="slds-grid slds-col slds-size_1-of-3">
+            <lightning:layout multipleRows="true" >
+                
+                <lightning:layoutItem size="12" padding="around-small">
+                    <lightning:select label="Select an Account for lookup relation" value="{!v.conAccountId}">
+                        <aura:iteration items="{!v.accList}" var="opt">
+                            <option text="{!opt.Name}" value="{!opt.Id}" selected="{!opt.selected}"></option>
+                        </aura:iteration>
+                    </lightning:select>
+                </lightning:layoutItem>
+                
+                <lightning:layoutItem size="12" padding="around-small"><lightning:input label="Give a name to Contact"  id="inputField" placeholder="Enter LastName..." value="{!v.LastName}" class="fullwidth"/></lightning:layoutItem>
+                
+                <div style="text-align:center;width:100%;"><lightning:layoutItem size="12" padding="around-small"><lightning:button variant="brand" iconName="utility:adduser" label="Create Account" onclick="{! c.changeAction}" class="fullwidth"/></lightning:layoutItem></div>               
+            </lightning:layout>
+        </div>  
+        <div id="test"></div>
+        <!--<div id="test2" class="myUniqueClass1" onclick="{!c.closeIt}">OK</div>-->
+    </div>
+</aura:component>

@@ -1,0 +1,54 @@
+.lightingInput {    
+    --slds-c-input-shadow:none; 
+    --slds-c-input-shadow-focus  :none;
+    --slds-c-input-color-background :#282453;
+    --slds-c-input-color-background-focus :#282453;
+    --slds-c-input-color-border :6px dotted #6D698;
+    --slds-c-input-color-border-focus :#6D698;
+    --slds-c-input-text-color :#eeeef0;
+    --slds-c-input-text-color-focus :#dfdee2;
+    --slds-c-input-radius-border :10px;
+    --slds-c-input-spacing-horizontal-start:10px;
+    --slds-c-input-text-color:#fff;
+    --slds-c-input-text-color-focus:#fff;
+    --lwc-colorTextInputDisabled:#fff;
+    --lwc-colorBorderInputDisabled:#F49756;    
+    --lwc-colorBackgroundInputDisabled:#282453;
+    --slds-c-input-color-border:#F49756;
+    --lwc-borderWidthThin:2px;
+    --lwc-formLabelFontSize:14px;
+    --lwc-colorTextLabel:black;
+  }
+  .mainParentContainer{
+    background-color: #26234e;height:auto;padding:40px 10px;border-radius:30px;
+  }
+  .sideBar{
+    text-align:center;background-color: #282453;height:auto;padding:10px 0px;border-radius:30px;box-shadow: 0px 13px 30px #000000;width:90px;position: relative; top: 50%; transform: translateY(-50%);
+  }
+  .sideBarItem{
+    cursor: pointer;transition: all 0.2s;
+  }
+  .sideBarItem:hover{
+    transform: scale(1.2);
+  }
+  .threeDots{
+    text-align: right;opacity: 0.5;
+  } 
+  .threeDots:hover{
+    opacity:1;
+  }
+  .dotIcon{
+    cursor: pointer;height: 15px;
+  }
+  .userImage{
+    text-align:center;transition: all 0.2s;
+  }
+  .userImage img{
+    width:200px;text-align:center;border-radius:50%;border:2px solid #d9d9da;padding:2px;
+  }
+  .userForm{
+    padding: 10px;box-shadow: 0px 13px 30px #000000;background-image: linear-gradient(rgb(255, 255, 255), rgb(200, 200, 255));border-radius:10px;border:1px solid #d9d9da;
+  }
+  .highChartDiv{
+    width:auto;height:auto;border-radius:10px;border:1px solid #d9d9da;box-shadow: 0px 13px 30px #000000;;
+  }

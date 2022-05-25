@@ -1,0 +1,8 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <p>hello</p>
+    hello
+    
+    
+    
+          <p style="font-family: 'Palette Mosaic', cursive;">A red flare silhouetted the jagged edge of a wing.</p>
+</aura:component>

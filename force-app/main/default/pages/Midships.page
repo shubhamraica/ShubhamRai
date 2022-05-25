@@ -1,0 +1,238 @@
+<apex:page id="Midships" controller="OpportunityTriggerHandler" renderAs="pdf"  applyBodyTag="false" contentType="utf-8">
+    <style type="text/css" media="print">
+        @page {        
+        size:A4 landscape;
+        margin:0.0in;
+        margin-top:-0.075in;
+        padding:0.0in;
+        }
+    </style>
+    
+    <div style="background-image: url('{!$Resource.logo}');background-size: 190px 190px;background-repeat: no-repeat;background-position:-60px 0px;">
+        <!--TOP IMAGE-->
+        <div style="margin-bottom:50px;overflow:hidden;text-align:right;">
+            <img src="{!$Resource.bed}" width="90px" height="90px" style="margin-right:50px;"/>
+            <img src="{!$Resource.top}" width="300px" height="100px"/>
+        </div>
+        
+        <!--HEADING-->
+        <div styleClass="heading" style="width:100%;height:auto;font-weight:700;font-size:18px;color:black;text-align:right;">
+            <p>‘MIDSHIPS’, SEAVILLE DRIVE, PEVENSEY BAY BN24 6AL</p>
+        </div>
+        
+        <!--BANNER IMAGE-->
+        <div>
+            <img src="{!$Resource.banner}" width="100%" height="400px"/>
+        </div>
+    </div>
+    
+    <!--BANNER IMAGE TITLE-->
+    <div style="width:100%;height:auto;font-weight:700;text-align:center;">
+        <p style="color:#FE1A99;font-size:20px;">PRICE: OFFERS IN EXCESS OF £550,000 FREEHOLD</p>
+        <p style="font-size:15px;padding:5px;margin:0px;">A RARE OPPORTUNITY TO ACQUIRE THIS EXCEPTIONALLY SPACIOUS SEVEN BEDROOM</p>
+        <p style="font-size:15px;padding:0px;margin:0px;">DETACHED BUNGALOW SITUATED WITHIN YARDS OF THE BEACH</p>
+    </div>
+    
+    <!--GREY DIV-->
+    <div style="width:100%;height:auto;color:#FE1A99;font-weight:700;padding:10px;background-color:#E8E8E8;margin-top:20px;">
+        <div style="width:49%;float:left;">
+            <ul style="list-style-type:disc">
+                <li style="margin:10px;">&nbsp;&nbsp;&nbsp;&nbsp;SEVEN BEDROOMS</li>
+                <li style="margin:10px;">&nbsp;&nbsp;&nbsp;&nbsp;TWO EN-SUITES</li>
+                <li style="margin:10px;">&nbsp;&nbsp;&nbsp;&nbsp;FURTHER THREE BATH/SHOWER ROOMS</li>
+                <li style="margin:10px;">&nbsp;&nbsp;&nbsp;&nbsp;24’ LOUNGE</li>
+                <li style="margin:10px;">&nbsp;&nbsp;&nbsp;&nbsp;KITCHEN/DINER</li>
+            </ul>
+        </div>
+        <div style="width:49%;float:right;">
+            <ul>
+                <span style="padding-left:10px;">UTILITY ROOM</span><br/>
+                <li style="margin:10px;">&nbsp;&nbsp;&nbsp;&nbsp;REAR GARDEN</li>
+                <li style="margin:10px;">&nbsp;&nbsp;&nbsp;&nbsp;SIDE DRIVEWAY</li>
+                <li style="margin:10px;">&nbsp;&nbsp;&nbsp;&nbsp;WITHIN YARDS OF THE BEACH</li>
+                <li style="margin:10px;">&nbsp;&nbsp;&nbsp;&nbsp;CLOSE TO THE VILLAGE</li>
+            </ul>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    
+    <div style="width:100%;padding:10px;background-color:#E8E8E8;margin-top:20px;">
+        <p>
+            <span style="color:#FE1A99;font-weight:700;">GENERAL DESCRIPTION: </span>A rare opportunity to acquire this exceptionally spacious detached
+            bungalow situated within yards of the beach and within easy walking distance to the centre of the sought
+            after seaside village of Pevensey Bay. Currently a seven bedroom foster home this substantial property would
+            make an ideal idea Airbnb or just a large family home situated yards from the beach and historic village. This
+            Chalet bungalow offers spacious and versatile accommodation throughout. With seven bedrooms across
+            both floors, five bathroom/shower rooms and a large amount of current or potential living accommodation,
+            this property offers extensive scope and could be an ideal large family home or used as shared
+            accommodation. There is the advantage of UPVC double glazing throughout and gas central heating.
+            Outside the bungalow has a secluded rear garden, walled front garden and side driveway allowing parking
+            for several vehicles. Viewings are very highly recommended to appreciate this spacious bungalow and the
+            potential it has to offer. 
+        </p>
+    </div>
+    
+    <div style="margin-bottom:20px;">
+        <p>
+            <span style="color:#FE1A99;font-weight:700;">ACCOMMODATION:</span><br/><br/>
+            UPVC obscure glazed door to:<br/>
+            <span style="font-weight:700;"><br/><br/>PORCH:</span>
+            Radiator. UPVC double glazed windows to front. Glazed window and door to:
+            <span style="font-weight:700;"><br/><br/>LOUNGE:</span>
+            24’01 x 13’03 max (7.3m x 4.0m) Fireplace housing electric fire with surround and mantle. T.V
+            point. Telephone point. Glazed window and door to kitchen:
+            <span style="font-weight:700;"><br/><br/>KITCHEN/DINER:</span>
+            24’03 x 9’11 (7.3m x 3.0m) (Partly tiled wall and tiled flooring) Range of wall and floor units
+            with worksurface over. Inset sink unit with drainer and mixer tap. Space and point for range cooker. Space
+            and point for American style fridge freezer. Space and plumbing for dishwasher. Cupboard housing boiler.
+            Radiator. UPVC double glazed windows to both sides and rear. UPVC obscure glazed door to side. UPVC
+            double glazed door to rear. Door to:
+            <span style="font-weight:700;"><br/><br/>UTILITY ROOM:</span>
+            11’02 x 10’00 (3.4m x 3.0m) (Tiled flooring) Radiator. UPVC double glazed windows to front
+            and side. Space and plumbing for washing machine. Storage cupboard. Doors to:
+            <span style="font-weight:700;"><br/><br/>SHOWER ROOM:</span>
+            9’10 x 2’06 (3.0m x 0.7m) (Partly tiled walls). Shower cubicle with curtain and electric
+            shower over. Pedestal wash hand basin. Low level wc. Extractor fan. Wall mounted heater.
+            BEDROOM ONE / FURTHER RECEPTION ROOM: 15’02 x 14’03 (4.6m x 4.3m) (Tiled flooring) TV point. UPVC
+            double glazed window to rear. UPVC double glazed patio door to rear garden.
+            <br/>From Lounge doors to:<br/>
+            <span style="font-weight:700;"><br/><br/>BEDROOM FOUR:</span>
+            13’11 into bay x 13’11 (4.2m x 4.2m) UPVC double glazed bay window with window seat
+            storage to front. Radiator. Heated towel rail. Pedestal wash hand basin. Open to:
+        </p>
+    </div>
+    <div style="clear:both;">
+        <div style="width:49.5%;float:left;"><img src="{!$Resource.top}" width="100%" height="250px"/></div>
+        <div style="width:49.5%;float:right;"><img src="{!$Resource.top}" width="100%" height="250px"/></div>
+        <div style="clear:both;"></div>
+    </div>
+    
+    <div style="margin-bottom:20px;">
+        <p>
+            <span style="font-weight:700;"><br/><br/>WET ROOM:</span> 7’02 max x 6’01 max (2.2m x 1.8m) (Fully tiled walls) Walk in shower area with screens and
+            shower over. Low level wc. Wall mounted heater. UPVC obscure double glazed window to side.
+            <span style="font-weight:700;"><br/><br/>BEDROOM FIVE:</span> 13’01 into bay x 12’07 (3.9m x 3.8m) UPVC double glazed bay window to rear. Storage
+            cupboard. Radiator. Pedestal wash hand basin. Door to:
+            <span style="font-weight:700;"><br/><br/>SHOWER ROOM:</span> 7’04 x 5’06 (2.2m x 1.6m) (Mostly tiled) Walk in shower area with screens and shower over.
+            Low level wc. Wall mounted heater. Chrome heated towel rail. Extractor fan.
+            From Lounge door to:
+            INNER HALLWAY: Doors to:
+            <span style="font-weight:700;"><br/><br/>BEDROOM SIX:</span> 11’11 x 10’04 (3.6m x 3.1m) Airing cupboard. Radiator. UPVC double glazed window to
+            side.
+            <span style="font-weight:700;"><br/><br/>BEDROOM THREE:</span> 14’01 into bay x 10’11 (4.3m x 3.3m) UPVC double glazed bay window to front. Storage
+            cupboard.
+            <span style="font-weight:700;"><br/><br/>BATHROOM:</span> 8’06 x 4’10 (2.6m x 1.4m) (Partly tiled) Shower bath with jets, shower screen, mixer tap and
+            shower over. Low level wc. Wash hand basin with vanity unit under. Chrome heated towel rail. UPVC
+            obscure double glazed window to side.
+            <br/><br/>From Lounge door enclosed stairs case rising to:
+            <span style="font-weight:700;"><br/><br/>FIRST FLOOR LANDING:</span> Access to eaves loft space. UPVC double glazed window to side. Doors to:
+            <span style="font-weight:700;"><br/><br/>BEDROOM TWO:</span> 15’05 x 11’09 (4.7m x 3.5m) UPVC double glazed window to side. Eaves storage cupboard
+            Radiator. Loft hatch (not inspected).
+            <span style="font-weight:700;"><br/><br/>BEDROOM SEVEN / STUDY:</span> 12’00 x 6’09 (3.6m x 2.0m) UPVC double glazed window to side. Radiator.
+            <span style="font-weight:700;"><br/><br/>SHOWER ROOM:</span> 8’08 x 6’09 (2.6m x 2.0m) Large walk in shower cubicle. Vanity unit with low level WC and
+            wash hand basin with storage under. Heated towel rail. Velux window to rear. 
+        </p>
+    </div>
+    
+    <div>
+        <p>
+            <span style="color:#FE1A99;font-weight:700;">OUTSIDE</span><br/><br/>
+            <span style="font-weight:700;">FRONT GARDEN: </span>Wall enclosed garden leading to entrance.<br/><br/>
+            <span style="font-weight:700;">REAR GARDEN:</span> Wall and fence enclosed with decked area to side, patio paved areas,
+            artificial turf area. Raised flower beds. Garden shed. Chicken coop. Separate section currently used for hot tub. Side gate.<br/><br/>
+            <span style="font-weight:700;">SIDE: </span>Gated driveway allowing off road parking for several vehicles.<br/><br/>
+        </p>
+    </div>
+    
+    <div style="clear:both;">
+        <div style="width:49.5%;float:left;"><img src="{!$Resource.top}" width="100%" height="250px"/></div>
+        <div style="width:49.5%;float:right;"><img src="{!$Resource.top}" width="100%" height="250px"/></div>
+        <div style="clear:both;"></div>
+    </div>
+    
+    <div>
+        <p>
+            <span style="color:#FE1A99;font-weight:700;">ADDITIONAL INFORMATION:</span><br/><br/>
+            <span style="font-weight:700;">Council Tax:</span> Band D (Wealden District Council)<br/><br/>
+            <span style="font-weight:700;">EPC: E</span>
+        </p>
+    </div>
+    
+    <div style="clear:both;">
+        <div style="width:49.5%;float:left;padding-bottom:5px;"><img src="{!$Resource.top}" width="100%" height="250px"/></div>
+        <div style="width:49.5%;float:right;padding-bottom:5px;"><img src="{!$Resource.top}" width="100%" height="250px"/></div>
+        <div style="clear:both;"></div>
+    </div>
+    <div style="clear:both;">
+        <div style="width:49.5%;float:left;padding-top:4px;"><img src="{!$Resource.top}" width="100%" height="250px"/></div>
+        <div style="width:49.5%;float:right;padding-top:4px;"><img src="{!$Resource.top}" width="100%" height="250px"/></div>
+        <div style="clear:both;"></div>
+    </div>
+    
+    <div style="">
+        <p><span style="color:#FE1A99;font-weight:700;text-align:left !important;">ENERGY PERFORMANCE CERTIFICATE GRAPH: </span></p>
+        <img src="{!$Resource.graph}" width="90%" height=""/>
+    </div>
+    
+    <!--FLOOR PLAN IMAGE-->
+    <div style="">
+        <p><span style="color:#FE1A99;font-weight:700;text-align:left !important;">FLOORPLAN: </span></p>
+        <img src="{!$Resource.floorPlan}" width="90%" height=""/>
+    </div>
+    
+    <div style="width:100%;padding:10px;">
+        <p>
+            <span style="color:#FE1A99;font-weight:700;">LOCATION AND MAP: </span>Seaville Drive is situated in the popular seaside village of Pevensey Bay. The
+            beach is just yards away and it is a short walk to the countryside. The village high street, being a short
+            distance, is a semi-rural seaside village with local amenities and has the advantage of main line rail links to
+            Eastbourne, Hastings, Brighton and London. Eastbourne Town centre with its major shops, theatres and
+            entertainments, along with Sovereign Harbour and The Crumbles Retail Park being are easily accessible.  
+        </p>
+    </div>
+    
+    <!--MAP IMAGE-->
+    <div style="text-align:center;">
+        <img src="{!$Resource.map}" width="60%" height="300px"/>
+    </div>
+    
+    <div style="width:100%;background-color:#E8E8E8;margin-top:5px;">
+        <p>
+            <span style="color:#FE1A99;font-weight:700;">AGENTS NOTES:</span>
+            <span style="font-weight:700;"><br/>*Buyers note regarding offers made:</span> Please note, that although we can negotiate offers and terms between our vendor and a
+            potential buyer, we are unable to confirm a sale or consider removing any property from the open market until we have been able
+            to report, to our client, that a buyer can proceed. In order to do so, all buyers are requested to provide us, as soon as possible, with
+            full correspondence details, photographic and residential ID, proof of funds and/or proof of proceed-ability (ie. financial advisor’s
+            details, selling agents details, copies of cash availability in the form of bank account or savings statements, and/or mortgage
+            agreement in principle). We also require solicitors’ details. Offers received subject to selling will still require the same verifications. All
+            final decisions, regarding offers and terms, remain with the vendor. Should you have any queries at any time about this process,
+            please call a member of our sales team to discuss.
+            In accordance with The Consumer Protection from Unfair Trading Regulations 2008 (CPR’s), masonbryant have prepared these
+            sales particulars for general guidance purposes only. They do not form part of any offer or contract. masonbryant have not carried
+            out a structural survey of the property or tested any apparatus, equipment, fittings or services, so cannot verify that they are in
+            working order. The buyer is advised to obtain verification from their solicitor or surveyor regarding boundaries, rights of way etc. for
+            which the agent cannot be held responsible. Items shown in photographs are not necessarily included in the sale. Room
+            measurements are given for guidance purposes only and should not be relied upon when ordering such items as furniture,
+            appliances and carpets. Lease details, service charges and ground rent (where applicable) are given as a guide only and should
+            be checked and confirmed via a solicitor.
+            <span style="font-weight:700;"><br/>GDPR:</span> Just to let you know we at masonbryant value your personal data and store it securely on our systems. We will only use your
+            data to provide the service you have asked us for and we do not share it with anyone outside of masonbryant. If we need to share
+            your information for any business reason, we will ask your permission first. If you want to know more about how we handle your
+            personal data, you can check out our privacy policy on our website or we can email you a copy of our guide to handling your
+            personal data.
+            <span style="font-weight:700;"><br/>Please note:</span> The full EPC (Energy Performance Certificate) is available for all our properties upon request.
+            <span style="font-weight:700;"><br/>Maps:</span> As taken from Google maps. Copyright Google.
+        </p>
+    </div>
+    
+    <div style="width:100%;margin-top:5px;font-size:22px;text-align:center;font-weight:700;">
+        <p>
+            <span style="color:#FE1A99;">t: (01323) 766 331&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e: sales@masonbryant.co.uk</span><br/><br/>
+            <span style="font-size:20px; !important">viewing strictly by appointment with masonbryant</span><br/><br/>
+            <span style="color:#FE1A99;">w: www.masonbryant.co.uk</span>
+        </p>
+    </div>
+    
+    <div>
+        <img src="{!$Resource.footer}" width="100%" height="160px"/>
+    </div>
+</apex:page>

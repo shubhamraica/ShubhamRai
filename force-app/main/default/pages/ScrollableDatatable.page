@@ -1,0 +1,8 @@
+<!--8.Create a scrollable list of datatable that has 20 records.-->
+<apex:page controller="ControllerForScrollableDatable">
+    <apex:outputPanel layout="block" style="transform: skew(.312rad); padding :10px ;overflow:auto; width:200px; height:200px; box-shadow: 0 3px 10px rgb(193 33 33 / 63%); margin:200px auto;  border: 1px solid #eff0f2;">
+        <apex:dataTable value="{! accounts }" var="ct" bgcolor="#fff" border="1">
+            <apex:column value="{! ct.Name }"/>
+        </apex:dataTable>
+    </apex:outputPanel> 
+</apex:page>

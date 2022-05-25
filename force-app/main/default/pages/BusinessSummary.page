@@ -1,0 +1,17 @@
+<apex:page renderAs="PDF">
+    <div style="width:48%;float:left;border:1px solid red;box-sizing: border-box;">
+        <h4 style="color:#0061a8; font-family:sans-serif;font-size:20px;width:50%;margin-bottom:-10px;">Cloud Analogy</h4>
+        <h5>[Street Address]<br/>[City, ST, ZIP]<br/>[Phone : [1234567890]]</h5>
+        <h5 style="padding:5px;background-color:blue;color:#fff;width:70%;font-family:sans-serif;">BILL TO</h5>
+        <b><p style="font-family:sans-serif;font-size:11px;margin-top:-10px;">[Name]<br/>[Company Name]<br/>[Name]<br/>[City,ST, ZIP]<br/>[Phone]<br/>[Email Address]</p></b>
+    </div>
+    <div style="width:50%; float:right;border:1px solid green;box-sizing: border-box;">
+        <div style="margin-left:250px;">
+            <h4 style="color:#0061a8; font-family:sans-serif;font-size:25px;width:50%;margin-bottom:-10px;">INVOICE</h4>
+            <h5>[Street Address]<br/>[City, ST, ZIP]<br/>[Phone : [1234567890]]</h5>
+            <h5 style="padding:5px;background-color:blue;color:#fff;width:70%;font-family:sans-serif;">BILL TO</h5>
+        </div>
+    </div>
+    <div style="width:100%;clear:both;"></div>
+    <p align = "center" style="color:#000; font-family:sans-serif;font-size:10px;margin-top:50px;"><b>If you have any questions about this invoice, please contact<br/>Shubham Rai, +91 1234567890shubhamrai@gmail.com</b></p>
+</apex:page>

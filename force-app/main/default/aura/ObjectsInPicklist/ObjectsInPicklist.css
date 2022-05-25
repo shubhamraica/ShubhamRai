@@ -1,0 +1,54 @@
+.THIS .spins::after {
+    position: absolute;
+    font-size:20px;
+    content: 'Please wait while loading';
+    width: 100%;
+    text-align: center;
+    top: calc(50% + 3em);
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.THIS  .slds-icon {
+    fill:pink;
+}
+
+.THIS .slds-datepicker, .THIS .slds-day, .THIS .slds-is-selected{
+    color:#fff !important;
+    background-color:red !important;
+}
+
+/*.THIS .slds-is-selected{
+    color:red !important;
+    fill:red;
+    border:0px solid red !important;
+    background-color:grey !important;
+}
+
+.THIS .slds-datepicker .slds-icon{
+    fill:green !important;
+}
+.THIS .slds-input[readonly] {
+    color:yellow !important;
+    fill:yellow !important;
+}*/
+
+
+.THIS .someBtn .slds-button:disabled{
+    color:red !important;
+}
+.THIS .slds-button:disabled{
+    color:red !important;
+}

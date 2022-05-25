@@ -1,0 +1,13 @@
+<aura:component controller='GiphyController' implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:handler name="init" value="this" action="{!c.HandleClick}"/>
+    <aura:attribute name="query" type="String" default="salesforce"/>
+    <aura:attribute name="imgSrc" type="String" default=""/>
+    
+    <div class = "input" style="font-size:20px;font-family:Apple Chancery, cursive;">
+        <lightning:input label ="search your favourite gifs..." value="{!v.query}" placeholder="search and hit enter..." onkeyup = "{! c.HandleClick }" />
+    </div>
+    
+    <img src = "{!v.imgSrc}" style="width:100%;"/>
+    
+</aura:component>

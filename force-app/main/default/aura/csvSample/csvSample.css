@@ -1,0 +1,11 @@
+.THIS {
+}
+@media screen and (max-width: 1000px ) and (min-width: 280px )  {
+    .THIS table{
+        border:0px solid red;
+    }
+}
+
+.THIS .lgc-bg{
+    color:red;
+}

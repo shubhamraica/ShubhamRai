@@ -1,0 +1,3 @@
+<apex:page controller="TwilioReceiveSMS">
+    This is VF page used for homepage of fore.com site.
+</apex:page>

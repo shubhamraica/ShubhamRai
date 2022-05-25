@@ -1,0 +1,24 @@
+.THIS {
+    background-color:#fdca40;
+}
+.THIS#mainTable{
+    text-align:center;
+    background-color: #fff;
+    margin:50px auto;
+    border:1px solid #f3f4ed;
+    width:60%;box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    padding:10px;
+}
+.THIS th{
+  border: 1px solid #dddddd;
+    text-align:center;
+  padding: 0px 8px;
+    background-color:#eee;
+}
+.THIS td{
+  border: 1px solid #dddddd;
+  padding: 0px 8px;
+}
+.THIS tr:hover {
+  background-color: #f8ede3;
+}
