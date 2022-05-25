@@ -5,7 +5,7 @@ private class AccountRelated_Test{
         AccountRelated obj = new AccountRelated();
         test.stopTest();
     }
-    @isTest public static void myUnitTest2(){
+    @isTest public static void myUnitTest3(){
         test.startTest();
         AccountRelated obj = new AccountRelated();
         test.stopTest();
